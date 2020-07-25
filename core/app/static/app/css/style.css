@@ -1,0 +1,411 @@
+nav {
+     border-top: 10px solid green;
+    }
+
+.pwd {
+    float : right;
+}
+
+.center {
+  text-align: center;
+   color: white;
+}
+.center a{
+    color: white;
+}
+
+.jumbotron {
+    background-color:transparent !important;
+    color: teal;
+}
+
+
+
+/* fixed icon */
+
+
+
+/* products navbar */
+.navbar.second-navbar {
+  margin-top: 84px;
+  background: teal !important;
+  transition: all .5s ease-in-out;
+  height : 8%;
+  position: fixed;
+  z-index: 1;
+}
+
+.navbar.second-navbar.top-nav-collapse {
+  margin-top: 45px;
+}
+
+.dropdown, .dropdown-menu {
+  z-index:2147483647;
+}
+
+.navbar {
+    transition: all 0.4s;
+    background:  linear-gradient(to right, green, teal) ;
+     border: none;
+    height: 13%;
+
+}
+
+.navbar .nav-link {
+    padding-bottom: 20px;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+}
+
+
+
+
+
+  /* Change navbar styling on scroll */
+  .navbar.active {
+      background: teal;
+      box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+
+
+  }
+  .navbar.active .nav-link {
+      color: teal;
+  }
+
+  .navbar.active .nav-link:hover,
+  .navbar.active .nav-link:focus {
+      color: green;
+      text-decoration: none;
+  }
+
+  .navbar.active .navbar-brand {
+      color: white;
+  }
+  .navbar .navbar-brand, .navbar .nav-link {
+      color: white;
+  }
+
+  .navbar i{
+    color: white;
+  }
+
+
+/* Change navbar styling on small viewports */
+@media (max-width: 991.98px) {
+    .navbar {
+        background: teal;
+
+    }
+
+    .navbar li {
+        margin-left : 5px;
+        margin-right : 5px;
+
+
+    }
+
+    .navbar .navbar-brand, .navbar .nav-link {
+        color: white;
+    }
+
+    .navbar i{
+      color: white;
+    }
+
+
+}
+
+/* social icons sidebar */
+.social {
+  padding-left: 10px;
+  text-align: center;
+}
+
+ul .social {
+    list-style-type: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    left: 0;
+}
+
+li {
+    float: left;
+	}
+
+li.social a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    left: 0;
+  }
+
+
+ul.custom-scrollbar {
+    list-style-type: none;
+}
+
+/* sidenav collapsible links */
+
+ul.collapsible {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.collapse {
+  padding: 5px;
+    display: block;
+    overflow: hidden;
+    background-color: transparent;
+}
+.active, .collapsible-header:hover {
+  opacity: 0.7;
+}
+
+.collapsible-header {
+
+  background: transparent ;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+}
+/* sidenav logo  */
+.logo-wrapper {
+  padding-top: 45%;
+  padding-left: 15px;
+  height: 150px;
+  width: 150px;
+  text-align: center;
+}
+
+
+
+/* icon rotate */
+.rotate{
+    -moz-transition: all 1s linear;
+    -webkit-transition: all 1s linear;
+    transition: all 1s linear;
+}
+
+.rotate.down {
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+}
+
+/* search bar */
+.search-form input {
+
+  border: none;
+  position: relative;
+  display: block;
+  outline: none;
+  height: 30px;
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px;
+  color: #333;
+  -webkit-box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+}
+
+::-webkit-input-placeholder { color: white;}
+:-moz-placeholder { color: white; }
+::-moz-placeholder { color: white; }
+:-ms-input-placeholder { color: white; }
+
+
+
+
+/* side nav */
+  body{
+ font-family: "Roboto", sans-serif;
+ }
+
+
+.sidenav {
+  border-radius: 1rem;
+   height: 75%;
+   width: 300px;
+   position: fixed;
+   z-index: 2147483647;
+   top: 15%;
+   left: 0;
+   background: linear-gradient(to right, teal, teal);
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+   overflow-x: hidden;
+   transition: 0.5s;
+   margin-top: 100px;
+   padding-top: 20px;
+    color: white;
+
+ }
+
+
+.sidenav a {
+  color: #fff;
+  display: block;
+  width: 100%;
+  line-height: 30px;
+  text-decoration: none;
+  padding-left: 10px;
+  box-sizing: border-box;
+  transition: 0.5s;
+  transition-property: background;
+ }
+
+.sidebar a:hover{
+   background: transparent;
+}
+
+ .sidenav a:hover {
+   color: #f1f1f1;
+ }
+.sidenav i{
+    padding-right: 10px;
+  }
+.sidenav .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    font-size: 36px;
+    margin-left: 50px;
+    padding-left: 270px;
+  }
+.nav-link {
+ color: white !important;
+ padding-top: 20px;
+
+
+ }
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+
+/* register form */
+  .register-container{
+
+    margin-bottom: 5%;
+    border-radius: 1rem;
+  }
+  .register-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+  .register-form-1 h3 {
+    text-align: center;
+    color: teal;
+  }
+  .register-form-1 h2 {
+    text-align: center;
+    color: #333;
+  }
+  .register-form-1 h1 {
+    text-align: center;
+    color: green;
+  }
+  .register-form-2 {
+  padding: 5%;
+  background: teal;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+  .register-form-2 h3 {
+    text-align: center;
+    color: #fff;
+  }
+  .register-container form{
+    padding: 10%;
+    border-radius: 1rem;
+  }
+  .btnSubmit
+  {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(to right, teal, white )
+  }
+  .register-form-2 .btnSubmit{
+    font-weight: 600;
+
+    background-color: #fff;
+  }
+  .register-form-2 .Loginhere{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .teal {
+    color: teal;
+  }
+  .register-form-2 {
+  padding: 5%;
+
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+
+
+  #contact_form {
+  padding: 5%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+/* login form */
+
+#login .container #login-row #login-column .login-box {
+  border-radius: 1rem;
+  margin-top: 10px;
+  max-width: 1000px;
+  height: 500px;
+  border: 1px solid #9C9C9C;
+  background: white;
+
+}
+#login .container #login-row #login-column .login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column .login-box #login-form #register-link {
+  margin-top: -95px;
+}
+.loginbody{
+    background-image: linear-gradient(to right, green, teal);
+}
+/* contact form */
+
+
+
+
+
+/* search */
+.active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #4dd0e1;
+  box-shadow: 0 1px 0 0 #4dd0e1;
+}
+.active-cyan input.form-control[type=text] {
+  border-bottom: 1px solid #4dd0e1;
+  box-shadow: 0 1px 0 0 #4dd0e1;
+}
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: teal; }
+.page-footer a{
+    color: white;
+}

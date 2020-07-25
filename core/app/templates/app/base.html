@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+  <html lang="en" dir="ltr">
+    <head>
+
+
+      <meta name = "viewport" content= "width=device-width"  initial-scale=1, shrint-to-fit="no">
+      <meta charset="utf-8">
+
+
+      <title>Nature Organics</title>
+
+      <!-- Font Awesome --->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+            <!-- Bootstrap core CSS -->
+      <link rel="stylesheet" href="{% static 'app/css/Bootstrap.min.css' %}">
+
+
+      <!--- Your custom styles --->
+      <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+
+
+
+      <!-- MDB icon -->
+      <link rel="icon" href= "{% static 'app/img/mdb-favicon.ico' %}" type="image/x-icon">
+
+      <!-- Google Fonts Roboto -->
+      <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+      <!-- MDB -->
+      <link rel="stylesheet" href="{% static 'app/css/mdb.min.css' %}" />
+
+
+  <style>
+  .floating-btns {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    border-radius: 50%;
+    background: linear-gradient(to right, green, teal);
+    color: white;
+    z-index: 2147483647;
+    bottom: 15%;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    outline: blue;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+  }
+  .floating-btns:hover{
+    background: teal;
+    color:white;
+  }
+
+  .floating-btn {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    border-radius: 50%;
+    background: linear-gradient(to right, green, teal);
+    color: white;
+    z-index: 2147483647;
+    bottom: 15%;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    outline: blue;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+  }
+  .floating-btn:hover{
+    background: teal;
+    color:white;
+  }
+  .rotate {
+    -moz-transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+}
+  .rotate.down {
+    -moz-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    transform:rotate(90deg);
+}
+
+
+
+  </style>
+
+
+
+    </head>
+
+    <body>
+{% load crispy_forms_tags %}
+
+<header>
+
+
+  <!--- message us float button --->
+  <a class="floating-btn" id="contact" href="{% url 'app:contact' %}"><i class="far fa-envelope"></i></a>
+  <!--- search float button --->
+  <a class="floating-btns" href="{% url 'app:search' %}"><i class="fas fa-search"></i></a>
+
+
+      <nav class="navbar fixed-top navbar-toggleable-sm navbar-expand-lg scrolling-navbar double-nav">
+        <div class="float-left">
+          <span style="font-size:25px;cursor:pointer" onclick="openNav()"><i class="fas fa-bars"></i></span></div>
+
+         <!-- Breadcrumb-->
+        <div class="breadcrumb-dn mr-auto ml-5">
+          <a class="navbar-brand" href="#">
+           <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" class="d-inline-block align-top" alt="mdb logo"> Bootstrap </a>
+        </div>
+
+        <ul class="nav navbar-nav d-inline-block  ml-auto">
+        <li class="nav-item  d-inline-block px-2">
+            <a class="nav-link" href="#"><i class="fas fa-home" aria-hidden="true"></i> <span class="clearfix d-none d-md-inline-block"> Home </span></a>
+          </li>
+          <li class="nav-item  d-inline-block px-2">
+            <a class="nav-link" href="#"><i class="fas fa-blog" aria-hidden="true"></i> <span class="clearfix d-none d-md-inline-block"> Blog </span></a>
+          </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item  d-inline-block px-2">
+            <a class="nav-link" href="#">
+
+                <i class="fas fa-cart-plus"></i> <span class="clearfix d-none d-md-inline-block"> Cart </span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+              <i class="far fa-user"></i> <span class="clearfix d-none d-md-inline-block"> Account </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Orders</a>
+                <a class="dropdown-item" href="{% url 'app:logout' %}">Logout</a>
+            </div>
+          </li>
+         {% else %}
+
+
+            <li class="nav-item  d-inline-block px-2">
+            <a class="nav-link" href="#"><i class="fas fa-sign-in" aria-hidden="true"></i> Login </a>
+          </li>
+          {% endif %}
+
+          </ul>
+
+
+       </nav>
+
+
+     <div id="mySidenav" class="sidenav mt-5">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+     <ul class="custom-scrollbar">
+       <!-- Logo -->
+         <li>
+         <div class="logo-wrapper waves-light">
+             <a href="#"><img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center" alt="logo"></a>
+         </div>
+         </li>
+         <!--/. Logo -->
+         <!--Social-->
+        <li>
+         <ul class="social">
+                 <li class="social"><a href="#" class="icons-sm fb-ic"><i class="fab fa-whatsapp fa-lg"> </i></a></li>
+                 <li class="social"><a href="#" class="icons-sm gplus-ic"><i class="far fa-envelope fa-lg"> </i></a></li>
+                 <li class="social"><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f fa-lg"> </i></a></li>
+                 <li class="social"><a href="#" class="icons-sm fb-ic"><i class="fab fa-instagram fa-lg"> </i></a></li>
+         </ul>
+        </li>
+
+         <!--/Social-->
+         <!--Search Form-->
+         <li>
+         <form class="search-form" role="search">
+                 <div class="form-group md-form mt-0 pt-1 waves-light">
+                     <input type="text" id="search" class="form-control text-white" placeholder="Search">
+                  </div>
+         </form><hr/>
+         </li>
+
+         <!--/.Search Form-->
+         <!-- Side navigation links -->
+         <li>
+             <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a  class="collapsible-header waves-effect arrow-r" data-toggle="collapse" data-target="#demo">
+                    Bio Fertilizers: <div class="fas fa-chevron-right rotate"></div></a>
+                 <div id="demo" class="collapse">
+                 <ul>
+                     <li><a href="#" class="waves-effect">Nitrozen fixing bacteria</a>
+                     </li>
+                     <li><a href="#" class="waves-effect">Phosphorus Solubilizing Bacteria (PSB)</a>
+                     </li>
+                     <li><a href="#" class="waves-effect">Potash Mobilizing Bacteria (KMB)</a>
+                     </li>
+                     <li><a href="#" class="waves-effect">Zinc Solubilizing Bacteria (ZSB)</a>
+                     </li>
+                     <li><a href="#" class="waves-effect">Bio-Fertilizer Consortia (NPK)</a>
+                     </li>
+                     <li><a href="#" class="waves-effect">Vesicular-Arbuscular Mycorrhiza (VAM)</a>
+                     </li>
+                  </ul>
+                 </div>
+                 </li>
+
+
+
+
+                  <li>
+                     <a  class="collapsible-header waves-effect arrow-r" data-toggle="collapse" data-target="#demo1">
+                        Bio-Pesticides: <div class="fas fa-chevron-right rotate"></div></a>
+                   <div id="demo1" class="collapse">
+                   <ul>
+                       <li><a href="#" class="waves-effect">Trichoderma viridae</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Trichoderma harzianum</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">pseudomonas fluorescence</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Beauveria bassiana</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Metarhizium anisopliae</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">verticillium lecanii</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Numeria rileyi</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">pochonia chlamydosporia</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">paecilomyces lilacinus</a>
+                       </li>
+                    </ul>
+                   </div>
+                   </li>
+
+                 <li>
+                       <a  class="collapsible-header waves-effect arrow-r" data-toggle="collapse" data-target="#demo2">
+                        Other cultures: <div class="fas fa-chevron-right rotate"></div></a>
+                   <div id="demo2" class="collapse">
+                       <ul>
+                       <li><a href="#" class="waves-effect">Bacillus subtilis</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Bacillus megaterium</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Bacillus pumilus</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Bacillus amyloliquefaciens</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Bacillus licheniformis</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Bacillus polymyxa</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Nitrosomonas</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">. Nitrobacter</a>
+                       </li>
+                       <li><a href="#" class="waves-effect">Decomposer (Consortium)</a>
+                       </li>
+                    </ul>
+                   </div>
+                   </li>
+
+
+
+               <!--/. Side navigation links -->
+   <!-- Basic dropdown -->
+
+         </li>
+             </ul></li></ul>
+     </div>
+
+
+
+
+
+
+</header>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container content" >
+      {% block content %}
+
+
+
+
+
+
+
+      {% endblock %}
+
+    </div>
+    {% include 'app/footer.html' %}
+      <script src="{% static 'app/js/navstyle.js' %}"></script>
+    {% include 'app/scripts.html' %}
+
+
+
+</body>
+</html>

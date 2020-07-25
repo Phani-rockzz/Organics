@@ -1,0 +1,54 @@
+
+    <!--- jquery cdn --->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js"
+    integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- tiny mce -->
+    <script src='https://cdn.tiny.cloud/1/2o1vo7vs51nd346r2ueeaiekgq3nybu60hwo1mh556jey88b/tinymce/5/tinymce.min.js'
+            referrerpolicy="origin"></script>
+
+
+  <!-- Custom scripts -->
+
+
+
+
+
+<script>
+$(function () {
+$(window).on('scroll', function () {
+    if ( $(window).scrollTop() > 10 ) {
+        $('.navbar').addClass('active');
+    } else {
+        $('.navbar').removeClass('active');
+    }
+});
+});
+
+/* sidenav bar query */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "300px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+$(".rotate").click(function () {
+    $(this).toggleClass("down");
+})
+
+
+
+
+// Animations initialization
+new WOW().init();
+
+</script>

@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+
+{% load bootstrap4 %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container register-container">
+
+
+        <div class="row">
+          <div class="col-md-5 register-form-1">
+              <h3>Write to Us</h3>
+              <hr/>
+              <form method="post" enctype="multipart/form-data" >
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <div>   {{ form.contact_email|as_crispy_field }}</div>
+                  </div>
+                  <div class="form-group">
+                      <div>   {{ form.contact_name|as_crispy_field }}</div>
+                  </div>
+                  <div class="form-group">
+                      <div>   {{ form.content|as_crispy_field }}</div>
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" class="btnSubmit" value="Send Message" />
+                  </div>
+              </form>
+          </div>
+            <div class="col-md-7 register-form-2" id="contact_form">
+                <h2 class="text-center text-white">Contact Us</h2>
+              <hr/>
+               <div class="center">
+                   <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <br>
+                  <strong><abbr>M.Phanindra</abbr></strong><br/>
+                  Miryalaguda<br />
+                  Nalgonda(Dist),<br/>
+                  TS 508207<br />
+                   </address> </div><br/><br/>
+                <div class="center">
+                    <i class="fas fa-phone-alt" aria-hidden="true"></i><br/>
+                  <abbr title="Phone">P:</abbr>
+                    9493354366
+                </div>
+                <br/><br/>
+                <div class="center">
+                    <i class="far fa-envelope" aria-hidden="true"></i><br/>
+                <address>
+                    <strong>Support:</strong>   <a href="mailto:phanigoud123@gmail.com.com">Support@example.com</a><br />
+                    <strong>Marketing:</strong> <a href="mailto:phanigoud123@gmail.com">Marketing@example.com</a>
+                </address></div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
