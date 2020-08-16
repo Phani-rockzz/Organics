@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+        <div class="jumbotron">
+          <h2>Your Order details</h2><br>
+          <p>Name : {{order.user.name}}</p>
+          <p>Email : {{order.user.email}}</p>
+          <p>Phone : {{order.user.phone}}</p>
+
+          {% for order_item in order.items.all %}
+          <h4>Product : {{order_item.item.item_name}}</h4>
+          <h4>Quantity : {{order_item.quantity}}</h4>
+          {% endfor %}
+          <h3>Amount : {{order.get_total_price}}</h3><br>
+          <form action="{% url 'app:request' %}">
+              <input type="submit" value="click to pay" />
+          </form>
+
+        </div>
+
+
+
+
+
+
+{% endblock %}

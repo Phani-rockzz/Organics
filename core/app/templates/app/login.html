@@ -30,13 +30,14 @@
                         <br/>
                         <div class="form-group">
                             <label for="remember-me" class="text-black"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                            <input type="submit"  class="btnSubmit" value="Login">
+                            <input type="submit"  class="btnSubmit" value="Login" style="">
                         </div>
                     </form>
 
-                            <a href="{% url 'app:signup' %}" class="pwd text-black">Register here</a>
 
-                            <a href="{% url 'app:password_reset' %}" class=" text-black">forgot password?</a>
+                            Not a member?<a href="{% url 'app:signup' %}" class=" text-teal">Sign up/Register</a>
+
+                            <a href="{% url 'app:password_reset' %}" class="pwd text-teal">forgot password?</a>
 
 
 

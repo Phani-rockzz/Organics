@@ -2,13 +2,24 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.shortcuts import reverse
-from django.conf import settings
-from tinymce.models import HTMLField
 from phonenumber_field.modelfields import PhoneNumberField
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth.models import User
+
+
+from datetime import date
+from decimal import Decimal
+from email.mime.application import MIMEApplication
+from django.conf import settings
+
+from django.template.loader import render_to_string, get_template
+from django.template import TemplateDoesNotExist, Context
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+from io import StringIO
+from django.conf import settings as app_settings
+
+
 
 
 # Create your models here.
@@ -39,7 +50,8 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     """custom user model that supports email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -47,33 +59,35 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 
-class Customer(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)
-    phone = PhoneNumberField(null=True, unique=True)
-
-    def __str__(self):
-        return str(self.name)
-
-
-@receiver(post_save, sender=User)
-def update_profile_signal(sender, instance, created, **kwargs):
-    if created:
-        Customer.objects.create(user=instance)
-    instance.customer.save()
-
-
 # products
-class Product(models.Model):
-    product_name = models.CharField(max_length=100)
+class Item(models.Model):
+    item_name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
-    description = HTMLField()
+    image = models.ImageField(upload_to='images/', null=True, blank=True, editable=True)
+
+    description = models.TextField()
+    usage = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.product_name
+        return self.item_name
+
+    def get_absolute_url(self):
+        return reverse("app:product", kwargs={
+            "pk": self.pk
+
+        })
+
+    def get_add_to_cart_url(self):
+        return reverse("app:add-to-cart", kwargs={
+            "pk": self.pk
+        })
+
+    def get_remove_from_cart_url(self):
+        return reverse("app:remove-from-cart", kwargs={
+            "pk": self.pk
+        })
 
     @property
     def imageURL(self):
@@ -84,53 +98,56 @@ class Product(models.Model):
         return url
 
 
-class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
-    complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100, null=True)
+class OrderItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
 
     def __str__(self):
-        return str(self.id)
+        return f"{self.quantity} of {self.item.item_name}"
 
-    @property
-    def shipping(self):
-        shipping = False
-        orderitems = self.orderitem_set.all()
-        for i in orderitems:
-            if i.product.digital == False:
-                shipping = True
-        return shipping
+    def get_total_item_price(self):
+        return self.quantity * self.item.price
 
-    @property
-    def get_cart_total(self):
-        orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
+    def get_discount_item_price(self):
+        return self.quantity * self.item.discount_price
+
+    def get_amount_saved(self):
+        return self.get_total_item_price() - self.get_discount_item_price()
+
+    def get_final_price(self):
+        if self.item.discount_price:
+            return self.get_discount_item_price()
+        return self.get_total_item_price()
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    items = models.ManyToManyField(OrderItem)
+    start_date = models.DateTimeField(auto_now_add=True, null=True)
+    ordered_date = models.DateTimeField(null=True)
+    ordered = models.BooleanField(default=False)
+    address = models.ForeignKey(
+        'CheckoutAddress', on_delete=models.SET_NULL, blank=True, null=True, related_name="+")
+    payment = models.ForeignKey(
+        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.email
+
+    def get_total_price(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_final_price()
         return total
 
-    @property
-    def get_cart_items(self):
-        orderitems = self.orderitem_set.all()
-        total = sum([item.quantity for item in orderitems])
-        return total
-
-
-class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def get_total(self):
-        total = self.product.price * self.quantity
-        return total
 
 
 # address
-class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+class CheckoutAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     phone = PhoneNumberField(null=True)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
@@ -139,13 +156,93 @@ class ShippingAddress(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.address
+        return self.user.email
 
 
 class Contact(models.Model):
     contact_name = models.CharField(max_length=100)
     contact_email = models.EmailField(max_length=100)
+    contact_phone = models.CharField(max_length=100)
     content = models.TextField()
 
     def __str__(self):
         return self.contact_name
+
+
+class Payment(models.Model):
+    txn_id = models.CharField(max_length=500)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL, blank=True, null=True)
+    amount = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    checksum = models.CharField(max_length=255, null=True, blank=True)
+    paid = models.BooleanField(default=False)
+
+
+
+    def __str__(self):
+        return self.user.email
+
+
+class InvoiceManager(models.Manager):
+    def get_invoiced(self):
+        return self.filter(invoiced=True, draft=False)
+
+    def get_due(self):
+        return self.filter(invoice_date__lte=date.today(),
+                           invoiced=False,
+                           draft=False)
+
+class Currency(models.Model):
+    code = models.CharField(unique=True, max_length=3)
+    pre_symbol = models.CharField(blank=True, max_length=1)
+    post_symbol = models.CharField(blank=True, max_length=1)
+
+    def __unicode__(self):
+        return self.code
+
+def increment_invoice_number():
+    last_invoice = Invoice.objects.all().order_by('id').last()
+    if not last_invoice:
+        return 'FWO0001'
+    invoice_no = last_invoice.invoice_id
+    new_invoice_no = str(int(invoice_no[4:]) + 1)
+    new_invoice_no = invoice_no[0:-(len(new_invoice_no))] + new_invoice_no
+    return new_invoice_no
+
+
+class Invoice(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, blank=True, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    address = models.ForeignKey(CheckoutAddress, on_delete=models.CASCADE, related_name='%(class)s_set')
+    invoice_id = models.CharField(max_length=500, default=increment_invoice_number, unique=True, null=True, blank=True)
+    invoice_date = models.DateField(default=date.today)
+    invoiced = models.BooleanField(default=False)
+    draft = models.BooleanField(default=False)
+    paid_date = models.DateField(blank=True, null=True)
+
+    objects = InvoiceManager()
+
+    def __str__(self):
+        return self.user.email
+
+    class Meta:
+        ordering = ('-invoice_date', 'id')
+
+    def file_name(self):
+        return u'Invoice %s.pdf' % self.invoice_id
+
+
+class InvoiceItem(models.Model):
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='items', unique=False)
+    description = models.CharField(max_length=100)
+    unit_price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.DecimalField(max_digits=8, decimal_places=2, default=1)
+
+    def total(self):
+        total = Decimal(str(self.unit_price * self.quantity))
+        return total.quantize(Decimal('0.01'))
+
+    def __unicode__(self):
+        return self.description

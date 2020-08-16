@@ -3,13 +3,59 @@
 
 <!-- Search form -->
 <nav class="navbar second-navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
-  <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-1" style="width: 100%;" mdbRippleRadius>
+  <form method="get" action="{% url 'app:search' %}" class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-1" style="width: 100%;" mdbRippleRadius>
 
-  <input class="form-control form-control-sm col-md-12 mr-3 " style="width: 80%;" type="text" placeholder="Search here.."
+  <input class="form-control form-control-sm col-md-12 mr-3 " style="width: 80%;" name="q" type="text" placeholder="Search here.."
     aria-label="Search">
   <i class="fas fa-search" aria-hidden="true"></i>
   </form>
 </nav>
+<br/>
+<br/>
+<br/><br/>
+    {% if object_list != "" %}
+    {% if object_list %}
+        <h2>Search for products</h2>
+    {% endif %}
+
+ <div class="row">
+    {% if object_list %}
+      {% for product in object_list %}
+
+      <div class="card col-md-4">
+          <!-- Card image -->
+          <div class="view overlay">
+              <img class="card-img-top thumbnail" src="{{ product.imageURL }}"
+                   alt="Search for products">
+              <a href="{{ product.get_absolute_url }}">
+                  <div class="mask rgba-white-slight"></div>
+              </a>
+          </div>
+          <!-- Card content -->
+          <div class="card-body">
+              <!-- Title -->
+              <h4 class="card-title">{{ product.product_name }}</h4>
+              <!-- Text -->
+              <p class="card-text">{{ product.description }}</p>
+              <!-- Button -->
+              <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
+          </div>
+      </div>
+
+      <!-- Card -->
+      {% endfor %}
+        {% elif not object_list %}
+        <h3>Sorry! no data found, please try again.</h3>
+     {% endif %}
+     {% endif %}
+
+
+      <hr/>
+
+
+  </div>
+
+
 
 
 {% endblock %}

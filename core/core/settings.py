@@ -26,7 +26,7 @@ SECRET_KEY = 'a&2f8e4$^j)-##yb+rn!73$@_n1ugp8dhkx*aqjwkmgs2xgmif'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', "a3d9d88f0011.ngrok.io"]
 
 
 
@@ -39,13 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
     'pwa',
     'tinymce',
     'phonenumber_field',
     'crispy_forms',
     'bootstrap4',
-    'bootstrap_modal_forms'
+    'bootstrap_modal_forms',
+    'app.apps.AppConfig'
 
 
 ]
@@ -104,16 +104,21 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'mydatabase',
         'USER': 'postgres',
         'PASSWORD': 'sanjayjanu@1',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+
+
+
 
 
 # Password validation
@@ -153,10 +158,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'app.User'
+
 LOGIN_REDIRECT_URL = 'app:home'
 LOGOUT_REDIRECT_URL = 'app:home'
+LOGIN_URL = 'app:signin'
+
+PAYTM_COMPANY_NAME = "Farmway Organics"   # For representation purposes
+PAYTM_INDUSTRY_TYPE_ID = "Retail"     # For staging environment
+PAYTM_CHANNEL_ID = "WEB"
+PAYTM_MERCHANT_KEY = "Vv5M5Iu9b4Yr5&mv"
+PAYTM_MERCHANT_ID = "cxgUTw88628774174098"
+PAYTM_CALLBACK_URL = "http://localhost:7000/response/" # Hardcode
+PAYTM_WEBSITE = "WEBSTAGING"
+PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
+PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
