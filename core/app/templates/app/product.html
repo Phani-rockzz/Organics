@@ -13,9 +13,9 @@
       <div class="row wow fadeIn">
 
         <!--Grid column-->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 zoom">
 
-          <img src="{{ item.imageURL }}" class="img-fluid" alt="">
+                <img src="{{ item.imageURL }}" class="img-fluid" alt="product image">
 
         </div>
         <!--Grid column-->
@@ -34,7 +34,7 @@
                 <span class="badge blue mr-1">{{ object.get_label_display }}</span>
               </a>
             </div>
-
+          <div class="center text-dark">
          <p class="lead font-weight-bold"> Name: {{ object.item_name }}</p>
 
           <p class="lead">Category: {{ object.category }}</p>
@@ -50,12 +50,12 @@
              <span>Rs.{{ object.price }}</span>
             {% endif %}
 
-            </p>
+          </p></div>
 
 
 
 
-            {% comment %} <form class="d-flex justify-content-left">
+             {% comment %}<form class="d-flex justify-content-left">
               <!-- Default input -->
               <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
               <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
@@ -63,7 +63,7 @@
               </button>
 
             </form>{% endcomment %}
-
+            <div class="center">
             <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-group-sm my-0 p" >Add to cart
                 <i class="fas fa-shopping-cart ml-1"></i>
             </a>
@@ -71,8 +71,13 @@
             {{ object.get_quantity_in_chart }}
             <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-group-sm my-0 p" >Remove From cart
                 <i class="fas fa-trash ml-1"></i>
-            </a>
+            </a></div><br/>
 
+              <div class="center" style="color: #0c5460">(OR)</div><br/>
+            <center>
+                <a class="btn btn-outline-success waves-effect" href="https://wa.me/message/U67YCWJP53G3J1" target="_blank" role="button">Order on Whatsapp
+                <i class="fab fa-whatsapp ml-2"></i>
+                </a></center>
             <hr>
 
 
@@ -105,4 +110,8 @@
       <!--Grid row-->
     </div>
   </main>
+
+
+
+
 {% endblock %}

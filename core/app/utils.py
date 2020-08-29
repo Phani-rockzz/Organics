@@ -4,6 +4,7 @@ import requests
 
 import json
 
+
 def VerifyPaytmResponse(response):
     response_dict = {}
     if response.method == "POST":
@@ -18,16 +19,16 @@ def VerifyPaytmResponse(response):
             headers = {
                 'Content-Type': 'application/json',
             }
-            data = '{"MID":"%s","ORDERID":"%s"}'%(MID, ORDERID)
+            data = '{"MID":"%s","ORDERID":"%s"}' % (MID, ORDERID)
             check_resp = requests.post(STATUS_URL, data=data, headers=headers).json()
-            if check_resp['STATUS']=='TXN_SUCCESS':
+            if check_resp['STATUS'] == 'TXN_SUCCESS':
                 response_dict['verified'] = True
                 response_dict['paytm'] = check_resp
-                return (response_dict)
+                return response_dict
             else:
                 response_dict['verified'] = False
                 response_dict['paytm'] = check_resp
-                return (response_dict)
+                return response_dict
         else:
             response_dict['verified'] = False
             return (response_dict)

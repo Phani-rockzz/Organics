@@ -1,0 +1,53 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<br>
+<br><br>
+<div class="view">
+              <img class="card-img-top" src="{{ post.imageURL }}"
+                   alt="Card image cap" style="height: 500px">
+          </div>
+<h2 class="posttitle loader " style="text-align: center"><b>{{ post.title }}</b></h2><br/>
+{% if post.published_date %}
+<div class="date postdate">
+    {{ post.published_date }}
+</div>
+{% else %}
+<a class="btn btn-outline-default" href="{% url 'blog:post_publish' pk=post.pk %}">publish</a>
+{% endif %}
+<p class="text-success" style="text-align: center">{{ post.text|safe|linebreaksbr}}</p>
+{% if user.is_authenticated and user.is_staff or user.is_superuser %}
+<a class="btn btn-warning" href="{% url 'blog:post_edit' pk=post.pk %}">
+    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+</a>
+<a class="btn btn-danger" href="{% url 'blog:post_remove' pk=post.pk %}">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</a>
+{% endif %}
+<hr>
+<a class="btn btn-primary btn-comment" href="{% url 'blog:add_comment_to_post' pk=post.pk  %}">Add Comment</a>
+<div class="container">
+    {% for comment in post.comments.all %}
+    <br>
+    {% if user.is_authenticated and user.is_staff or user.is_superuser  or comment.approved_comment %}
+
+    {% if not comment.approved_comment %}
+    <a class="btn btn-outline-danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
+   <i class="fas fa-times"></i>
+</a>
+    <a class="btn btn-outline-success" href="{% url 'blog:comment_approve' pk=comment.pk %}">
+    <i class="fas fa-check"></i>
+</a>
+    {% endif %}
+    <h6>posted by:<h5><strong style="color: #0c5460">{{comment.author}}</strong></h5></h6>
+    {{ comment.created_date }}
+    <p ><b style="color: #1b5e20">{{ comment.text|safe|linebreaks}}</b></p>
+
+    {% endif %}
+    {% empty %}
+    <p>No Comments!</p>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

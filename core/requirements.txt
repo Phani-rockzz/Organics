@@ -1,0 +1,4 @@
+pycryptodome
+django-crispy-forms
+django-tinymce
+django-bootstrap4

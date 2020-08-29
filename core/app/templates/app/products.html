@@ -13,16 +13,16 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
      <ul class="nav tab navbar-nav">
          <li class="nav-item ">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'Allproducts')"> All Products </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'Allproducts')" style="cursor: pointer"> All Products </a>
           </li>
         <li class="nav-item">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'Biofertilizers')"> Fertilizers </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'Biofertilizers')" style="cursor: pointer"> Fertilizers </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'Biopesticides')"> pesticides </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'Biopesticides')" style="cursor: pointer"> pesticides </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'othercultures')"> Others </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'othercultures')" style="cursor: pointer"> Others </a>
           </li>
      </ul>
     </div>
@@ -30,11 +30,11 @@
 {% if object_list %}
 <div id="Allproducts" class="tabcontent">
 
-  <div class="row">
+  <div class="row row-cols-1 row-cols-md-3">
       {% for product in object_list %}
-      <div class="card col-md-4">
+      <div class="card col-md-4 h-100">
           <!-- Card image -->
-          <div class="view overlay">
+          <div class="view zoom">
               <img class="card-img-top thumbnail" src="{{ product.imageURL }}"
                    alt="Card image cap">
               <a href="{{ product.get_absolute_url }}">
@@ -44,9 +44,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.item_name }}</h4>
+            <h4 class="card-title" style="color: teal;">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text"  style="color: #e74c3c;">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>
@@ -72,9 +72,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.item_name }}</h4>
+              <h4 class="card-title" style="color: teal;">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text" style="color: #e74c3c;">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>
@@ -102,9 +102,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.item_name }}</h4>
+              <h4 class="card-title" style="color: teal;">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text" style="color: #e74c3c;">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>
@@ -132,9 +132,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.item_name }}</h4>
+              <h4 class="card-title" style="color: teal;">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text" style="color: #e74c3c;">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>
@@ -161,9 +161,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.item_name }}</h4>
+              <h4 class="card-title" style="color: teal;">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text" style="color: #e74c3c;">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>

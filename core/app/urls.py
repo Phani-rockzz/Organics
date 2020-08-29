@@ -6,7 +6,7 @@ app_name = 'app'
 
 urlpatterns = [
 
-    path('', views.home, name='home'),
+    path('', views.Home.as_view(), name='home'),
     path('base_layout/', views.base_layout, name='base_layout'),
     path('signup/', views.register, name='signup'),
     path('signin/', auth_views.LoginView.as_view(template_name='app/login.html'), name='signin'),
@@ -15,7 +15,7 @@ urlpatterns = [
     path('product/<pk>/', views.ProductView.as_view(), name='product'),
     path('order-summary/', views.OrderSummaryView.as_view(), name='order-summary'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
-    path('payment/', views.PaymentView.as_view(), name='payment'),
+
     path('response/', views.response, name='response'),
     path('request/', views.paytm, name='request'),
     path('success/', views.success, name='success'),

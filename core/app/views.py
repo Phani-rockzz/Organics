@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import login, authenticate
 from .forms import RegisterForm
 from django.contrib import messages
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect, request
 from .forms import ContactForm, CheckoutForm
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
@@ -18,15 +18,24 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.http.response import JsonResponse # new
-from django.views.decorators.csrf import csrf_exempt # new
+from django.http.response import JsonResponse  # new
+from django.views.decorators.csrf import csrf_exempt  # new
+from django.template.loader import render_to_string
 from . import checksum
 from .utils import VerifyPaytmResponse
+
+
 user = settings.AUTH_USER_MODEL
 
 
 
 # Create your views here.
+class Home(ListView):
+    model = Item
+    queryset = Item.objects.all()
+    template_name = 'app/home.html'
+
+
 class ProductsView(ListView):
     model = Item
     queryset = Item.objects.all()
@@ -113,10 +122,9 @@ class CheckoutView(View):
             return redirect("app:order-summary")
 
 
-
 @csrf_exempt
 def response(request):
-    order = Order.objects.get( ordered=False)
+    order = Order.objects.filter(ordered=False).first()
     payment = Payment.objects.filter(paid=False)
     resp = VerifyPaytmResponse(request)
     if resp['verified']:
@@ -126,27 +134,25 @@ def response(request):
             p.paid = True
             p.save()
 
-
         order.ordered = True
         order.order = payment
         order.save()
 
-        return HttpResponse('<html><center><h1 class="text-green">Transaction Successful</h1><br><h3>your transaction '
-                            'amount of Rs.{{TXN_AMOUNT}} paid successful.</h3><br><h3>your transcation id is {{'
-                            'ORDER_ID}}</h3><br><h4>Keep Shopping with us.</h4></center></html>', status=200)
+        return HttpResponse('<html><center><h1 class="text-green">Transaction Successful</h1><br> '
+                            '<h4>Keep Shopping with us.</h4></center></html>', status=200)
     else:
         # check what happened; details in resp['paytm']
-        return HttpResponse("<center><h1>Transaction Failed</h1><center>", status=400)
 
-
-
+        #data = {'details': resp['paytm']['ORDERID'], 'txn': resp['paytm']['TXNID'], 'status': resp['paytm']['STATUS']}
+        #return HttpResponse(json.dumps(data), content_type='application/json', status=400)
+        return HttpResponse('<html><center><h1 class="text-green">Transaction Failed</h1><br></center></html>', status=400)
 
 def paytm(request):
     order = Order.objects.get(user=request.user, ordered=False)
     payment = Payment.objects.create(user=request.user, amount=order.get_total_price())
     payment.save()
     order_id = checksum.__id_generator__()
-    bill_amount = order.get_total_price()
+    bill_amount = order.total()
     data_dict = {
         'MID': settings.PAYTM_MERCHANT_ID,
         'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
@@ -171,58 +177,17 @@ def paytm(request):
     return render(request, 'app/request.html', context)
 
 
-
 def cash(request):
-
     order = Order.objects.get(user=request.user, ordered=False)
     context = {'order': order}
 
     return render(request, 'app/cashfree.html', context)
 
 
-class PaymentView(View):
-    def get(self, *args, **kwargs):
-        order = Order.objects.get(user=self.request.user, ordered=False)
-        context = {
-            'order': order
-        }
-        return render(self.request, "app/payment.html", context)
-
-    def post(self, *args, **kwargs):
-        order = Order.objects.get(user=self.request.user, ordered=False)
-        token = self.request.POST.get('stripeToken')
-        amount = int(order.get_total_price() * 100)  # cents
-        print('token:', token)
-        try:
-            chrg = stripe.Charge.create(
-                amount=amount,
-                currency="usd",
-                source=token
-            )
-
-            # create payment
-            payment = Payment()
-            payment.stripe_id = chrg['id']
-            payment.user = self.request.user
-            payment.amount = order.get_total_price()
-            payment.save()
-            print('payment_id:', payment.stripe_id)
-
-            # assign payment to order
-            order.ordered = True
-            order.payment = payment
-            order.save()
-            print('order:', order)
-
-            messages.success(self.request, "Success make an order")
-            return redirect('checkout')
-        except:
-            pass
-        return redirect(reverse('app:payment'))
 
 
-def home(request):
-    return render(request, 'app/home.html')
+
+
 
 
 def base_layout(request):
@@ -234,6 +199,7 @@ def success(request):
 
 
 def register(request):
+
     registered = False
     if request.method == 'POST':
         form = RegisterForm(data=request.POST)
@@ -256,9 +222,6 @@ def register(request):
                   {'form': form, 'registered': registered})
 
 
-
-
-
 class search(ListView):
     model = Item
     template_name = 'app/search.html'
@@ -267,17 +230,11 @@ class search(ListView):
         query = self.request.GET.get('q', None)
         if query:
             object_list = Item.objects.annotate(search=SearchVector('item_name', weight='A') + SearchVector(
-                    'category', weight='B'),).filter(search=SearchQuery(query)).distinct('item_name', 'category')
+                'category', weight='B'), ).filter(search=SearchQuery(query)).distinct('item_name', 'category')
             return object_list
         else:
             response = HttpResponse('Sorry! no data found.')
             return response
-
-
-
-
-
-
 
 
 from django.core.mail import send_mail
@@ -292,13 +249,13 @@ def contactview(request):
         if form.is_valid():
             contact_name = request.POST.get(
                 'contact_name'
-            , '')
+                , '')
             contact_email = request.POST.get(
                 'contact_email'
-            , '')
+                , '')
             contact_phone = request.POST.get(
                 'contact_phone'
-            , '')
+                , '')
             form_content = request.POST.get('content', '')
 
             # Email the profile with the
@@ -315,9 +272,9 @@ def contactview(request):
             email = EmailMessage(
                 "New contact form submission",
                 content,
-                "Your website" +' ',
+                "Your website" + ' ',
                 ['mekapotulaphani@gmail.com'],
-                headers = {'Reply-To': contact_email }
+                headers={'Reply-To': contact_email}
             )
             email.send()
             form.save()

@@ -6,16 +6,7 @@ from .models import Item, Order, OrderItem, CheckoutAddress, Contact, Payment
 
 
 from django.urls import path
-from .models import Invoice, InvoiceItem, Currency
 
-
-
-
-
-
-admin.site.register(Invoice)
-admin.site.register(InvoiceItem)
-admin.site.register(Currency)
 # Register your models here.
 
 

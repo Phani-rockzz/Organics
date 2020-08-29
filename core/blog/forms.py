@@ -1,0 +1,22 @@
+from django import forms
+from .models import Post, Comment
+from tinymce.widgets import TinyMCE
+
+
+class PostForm(forms.ModelForm):
+
+
+    class Meta:
+        model = Post
+        fields = ('author', 'title', 'image', 'text')
+
+
+
+
+class CommentForm(forms.ModelForm):
+
+
+    class Meta:
+        model = Comment
+        fields = ('author', 'text')
+

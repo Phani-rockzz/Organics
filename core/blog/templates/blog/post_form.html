@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>New Post</h1>
+<form class="post-form" method="post">
+    {% csrf_token %}
+    {{form.author|as_crispy_field}}
+    {{form.title|as_crispy_field}}
+    {{form.image|as_crispy_field}}
+    <textarea id="mytextarea" value="{{ form.text }}"></textarea>
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+
+{% endblock %}

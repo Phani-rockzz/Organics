@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Contact, CheckoutAddress, Invoice
+from .models import Contact, CheckoutAddress
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -34,7 +34,7 @@ class RegisterForm(UserCreationForm):
 
 
 PAYMENT = (
-    ('P', 'Pay Online'),
+    ('P', 'Paytm/Debit/Credit Card'),
     ('C', 'cod')
 )
 

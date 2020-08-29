@@ -16,7 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'app/static/app/js', 'serviceworker.js')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -27,8 +26,6 @@ SECRET_KEY = 'a&2f8e4$^j)-##yb+rn!73$@_n1ugp8dhkx*aqjwkmgs2xgmif'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', "a3d9d88f0011.ngrok.io"]
-
-
 
 # Application definition
 
@@ -45,16 +42,16 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'bootstrap_modal_forms',
-    'app.apps.AppConfig'
-
+    'app.apps.AppConfig',
+    'blog.apps.BlogConfig',
 
 ]
-#EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
-#DEFAULT_FROM_EMAIL = 'phanigoud123@gmail.com'
-#EMAIL_HOST_USER = ''
-#EMAIL_HOST_PASSWORD = ''
-#EMAIL_USE_TLS = False
-#EMAIL_PORT = 1025
+# EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'phanigoud123@gmail.com'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = False
+# EMAIL_PORT = 1025
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'mekapotulaphani@gmail.com'
@@ -100,7 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -108,18 +104,13 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydatabase',
+        'NAME': 'mydata',
         'USER': 'postgres',
         'PASSWORD': 'sanjayjanu@1',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
-
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -139,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -152,7 +142,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -168,12 +157,15 @@ LOGIN_REDIRECT_URL = 'app:home'
 LOGOUT_REDIRECT_URL = 'app:home'
 LOGIN_URL = 'app:signin'
 
-PAYTM_COMPANY_NAME = "Farmway Organics"   # For representation purposes
-PAYTM_INDUSTRY_TYPE_ID = "Retail"     # For staging environment
+PAYTM_COMPANY_NAME = "Farmway Organics"  # For representation purposes
+PAYTM_INDUSTRY_TYPE_ID = "Retail"  # For staging environment
 PAYTM_CHANNEL_ID = "WEB"
 PAYTM_MERCHANT_KEY = "Vv5M5Iu9b4Yr5&mv"
 PAYTM_MERCHANT_ID = "cxgUTw88628774174098"
-PAYTM_CALLBACK_URL = "http://localhost:7000/response/" # Hardcode
+PAYTM_CALLBACK_URL = "http://localhost:8000/response/"  # Hardcode
 PAYTM_WEBSITE = "WEBSTAGING"
 PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
 PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
+
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'IN'

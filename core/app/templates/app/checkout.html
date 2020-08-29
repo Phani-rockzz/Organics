@@ -6,31 +6,35 @@
 <main >
     <div class="container wow fadeIn">
 
-      <!-- Heading -->
-      <h2 class="my-5 h2 text-center">Checkout form</h2>
+
 
       <!--Grid row-->
       <div class="row">
+        <!-- Heading -->
+        <h2 class="my-5 h2 text-center">Checkout form</h2>
 
         <!--Grid column-->
         <div class="col-md-8 mb-4">
+
 
           <!--Card-->
           <div class="card">
 
             <!--Card content-->
             <form method="POST" class="card-body">
+              <center><h3 class="text-black-50">Shipping Address</h3></center>
+              <hr>
             {% csrf_token %}
               <!--address-2-->
               <div class="md-form mb-5">
+                <label for="phone" class="">Phone Number:</label>
                 {{ form.phone }}
-                <label for="phone" class="">phone</label>
               </div>
 
               <!--address-->
               <div class="md-form mb-5">
+                <label for="address" class="">Street Address:</label>
                 {{ form.address }}
-                <label for="address" class="">Address</label>
               </div>
 
 
@@ -40,18 +44,18 @@
 
                 <!--Grid column-->
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="city">City</label>
+                  <label for="city">City:</label>
                   {{ form.city }}
                 </div>
                 <!--Grid column-->
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="state">State</label>
+                  <label for="state">State:</label>
                   {{ form.state }}
                 </div>
                 <!--Grid column-->
                 <div class="col-lg-4 col-md-6 mb-4">
 
-                  <label for="zip">Zip</label>
+                  <label for="zip">Zip:</label>
                   {{ form.zipcode }}
                   <div class="invalid-feedback">
                     Zip code required.
@@ -126,10 +130,21 @@
               </div>
               <span class="text-success">-$0</span>
             </li> {% endcomment %}
+            {% if order.total %}
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>{{ order.get_total_price }}</strong>
+
+              <span>Shipping Charges</span>
+              {% if order.total <= 999 %}
+              <strong>Rs. 40</strong>
+            {% else %}
+              <strong> - </strong>
+              {% endif %}
             </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (INR)</span>
+              <strong>{{ order.total }}</strong>
+            </li>
+            {% endif %}
           </ul>
           <!-- Cart -->
 

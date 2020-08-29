@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name = "viewport" content= "width=device-width"  initial-scale=1, shrint-to-fit="no">
+    <title>blog</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body class="container-fluid">
+<style>
+    /* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: teal;
+
+}
+.page-footer a{
+    color: white;
+}
+.content{
+     -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 0 20px;
+
+}
+
+</style>
+<header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark teal">
+  <a class="navbar-brand" href="#">Farmway Organics</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'blog:post_list' %}">Posts
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:home' %}">Back to website</a>
+        </li>
+      {% if user.is_authenticated and user.is_staff or user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:post_new' %}">New Post</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:post_draft_list' %}">Drafts</a>
+        </li>
+        {% endif %}
+    </ul>
+    <span class="navbar-text white-text">
+      for queries call : +919493354366
+    </span>
+  </div>
+    </nav></header>
+<br/>
+<br/>
+<br/>
+    <div class="content container">
+
+                <div class="blog_posts">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+    </div>
+<footer class="page-footer text-center font-small mt-4 wow fadeIn" id="footer">
+
+    <!--Call to action-->
+    <div class="pt-4">
+      <a class="btn btn-outline-white waves-effect" href="{% url 'app:home' %}" target="_blank"
+        role="button">Back to website
+      </a>
+      <a class="btn btn-outline-white waves-effect" href="" target="_blank" role="button">About Us
+        <i class="fas fa-info-circle ml-2"></i>
+      </a>
+      <a class="btn btn-outline-white waves-effect" href="{% url 'app:contact' %}" target="_blank" role="button">Contact Us
+        <i class="fas fa-envelope ml-2"></i>
+      </a>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+        <i class="fab fa-facebook-f mr-3"></i>
+      </a>
+
+      <a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-twitter mr-3"></i>
+      </a>
+
+      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+        <i class="fab fa-telegram mr-3"></i>
+      </a>
+
+      <a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-whatsapp mr-3"></i>
+      </a>
+
+      <a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-instagram mr-3"></i>
+      </a>
+
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright text-black py-3">
+      © 2020 Copyright:
+      <a href="https://www.farmwayorganics.com" target="_blank"> farmwayorganics.com </a>- All Rights Reserverd.
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/tinymce.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.6/jquery.tinymce.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+        selector: '#mytextarea'
+});
+</script>
+
+
+</body>
+</html>

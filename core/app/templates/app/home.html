@@ -1,5 +1,5 @@
 {% extends 'app/base.html' %}
-
+{% load static %}
 {% block content %}
 <style>
   .floating-btnz {
@@ -35,128 +35,97 @@
 <!--- go to top button --->
 <button id="myBtn" class="floating-btnz" onclick="topFunction()" title="Go to Top"><i class="fas fa-arrow-up"></i></button>
 
+<div class="container">
 
 <div class="jumbotron row">
 <div class="col-md-4">
-<img class="d-block w-100" src="static/app/img/farmer.png" alt="First slide">
+<img class="d-block w-100" src="static/app/img/F_M_O_Final_2.png" alt="First slide">
 </div>
-<div class="col-md-8">
-    <h2 class="display-4">FarmWay Organics</h2>
-  <p class="lead">The Organic Way to explore Farmlands</p>
+<div class="col-md-8 center">
+   <h2 class="display-4" style="color: teal">FarmWay Organics</h2>
+  <p class="lead" style="color: #0c5460">The Organic Way to explore Farmlands</p>
   <hr class="my-4">
-  <p>The traditional way of farming was practiced for thousands of years, the Organic agriculture's farming reliance on synthetic fertilizers and pesticides</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  <p class="text-success"> The Organic farming involved in growing and nurturing crops without the use of synthetic based fertilizers and pesticides, This traditional way of farming was practiced for thousands of years for ecologically balanced agriculture.</p>
+  <a class="btn btn-outline-success btn-md" href="{% url 'app:products' %}" role="button" style="color: #0c5460">View Our Products</a>
 </div>
-
-</div>
-
-
-
-<!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
+<br><br>
+     <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-          alt="First slide">
-        <div class="mask rgba-black-light"></div>
+        <img class="d-block w-100" src="static/app/img/farm-landscape.png" alt="First slide">
+        <div class="mask flex-center waves-effect "></div>
       </div>
-      <div class="carousel-caption text-center">
-        <h3 class="h3-responsive">Light mask</h3>
-        <p>First text</p>
+      <div class="carousel-caption center" style="top: 15%;">
+        <h3 class="h3-responsive " style="color: #0c5460"><strong>Manure</strong></h3>
+        <h5 class="text-success">Animal manure, such as chicken manure and cow dung, has been used for centuries as a fertilizer for farming. It can improve the soil structure so that the soil holds more nutrients and water, and therefore becomes more fertile in nature.</h5>
       </div>
+    </div></div><br/><br/></div>
+
+<div class="row">
+  <center><h3 style="color: #0c5460">What we sell</h3></center>
+  <div class="col-md-4">
+    <div class="view">
+      <img class="d-block w-100" src="{% static 'app/img/gardentree.png' %}" alt="Bio Pesticides" style="height: 350px;">
     </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-          alt="Second slide">
-        <div class="mask rgba-black-strong"></div>
-      </div>
-      <div class="carousel-caption text-left">
-        <h3 class="h3-responsive">Strong mask</h3>
-        <p>Secondary text</p>
-      </div>
+    <div class="center">
+      <h4 style="color: teal">Bio Pesticides</h4>
+      <p class="text-success">Bio pesticides are used to control pests and disease carriers such as ticks, rats and mice and also to control weeds ands insects in organic way. </p>
     </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-          alt="Third slide">
-        <div class="mask rgba-black-slight"></div>
-      </div>
-      <div class="carousel-caption text-top-right">
-        <h3 class="h3-responsive">Slight mask</h3>
-        <p>Third text</p>
-      </div>
+
+  </div>
+  <div class="col-md-4">
+  <div class="view">
+      <img class="d-block w-100" src="{% static  'app/img/pngfuel.com.png' %}" alt="Bio Fertilizers" style="height: 350px;">
+    </div>
+    <div class="center">
+      <h4 style="color: teal">Bio Fertilizers</h4>
+      <p class="text-success">Bio fertilizers are the nutrients plant required to grow such substances like Nitrogen, Phosporous, Pottasium etc. </p>
     </div>
   </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
+  <div class="col-md-4">
+  <div class="view">
+      <img class="d-block w-100" src="{% static 'app/img/bonsai-maple-png.png' %}" alt="Garden Fertilizer" style="height: 350px;">
+    </div>
+    <div class="center">
+      <h4 style="color: teal">Garden Fertilizers</h4>
+      <p class="text-success">Garden plants like flowering plants, indoor plants and bonsai trees required some amount of fertilizers and reqirements to grow like Coco peat, Vermi compost and flowering fertilizers etc. </p>
+    </div>
+  </div>
+
+
+
+
+</div></div>
+
+
+<div class="carousel owl-carousel owl-theme">
+{% for product in object_list %}
+
+    <div class="card ">
+
+        <div class="card-img-top img-responsive">
+            <img src="{{product.imageURL}}" alt="image" style="height: 300px;">
+        </div>
+    <div class="card-content center">
+        <div class="title" style="color: #0c5460">
+            {{product.item_name}}
+        </div>
+    {% comment %}<div class="sub-title">
+        {{product.category}}
+
+    </div>{% endcomment %}
+     <p style="color: #e74c3c; text-align: center">
+         Rs.{{product.price}}
+     </p><div>
+     <a href="{{ product.get_absolute_url }}" class="btn btn-danger" style="text-align: center">View Product</a>
+    </div></div>
 </div>
-<!--/.Carousel Wrapper-->
-<p>
-  "Gandhi" redirects here. For the third prime minister of India, see Indira Gandhi. For other uses, see Gandhi (disambiguation).
-Mahātmā
-Gandhi
-Mahatma-Gandhi, studio, 1931.jpg
-Studio photograph of Mohandas K. Gandhi, London, 1931.
-Born	Mohandas Karamchand Gandhi
-2 October 1869
-Porbandar, Porbandar State, Kathiawar Agency, Bombay Presidency, British India
-Died	30 January 1948 (aged 78)
-New Delhi, India
-Cause of death	Assassination (gunshot)
-Monuments	Raj Ghat,
-Gandhi Smriti
-Nationality	Indian
-Other names	Mahatma Gandhi, Bapu ji, Gandhi ji, M. K. Gandhi
-Alma mater	University College London (LL.B.)[1]
-Inner Temple
-Occupation
-LawyerPoliticianActivistWriter
-Years active	1893–1948
-Era	British Raj
-Known for	Indian Independence Movement,
-Nonviolent resistance
-Notable work
-The Story of My Experiments with Truth
-Office	President of the Indian National Congress
-Term	1924–1925
-Political party	Indian National Congress
-Movement	Indian independence movement
-Spouse(s)	Kasturba Gandhi
-(m. 1883; died 1944)
-Children
-HarilalManilalRamdasDevdas
-Parents
-Karamchand Gandhi (father)
-Putlibai Gandhi (mother)
-Signature
-Signature of Gandhi
-Mohandas Karamchand Gandhi (/ˈɡɑːndi, ˈɡændi/;[2] 2 October 1869 – 30 January 1948) was an Indian lawyer,[3] anti-colonial nationalist,[4] and political ethicist,[5] who employed nonviolent resistance to lead the successful campaign for India's independence from British Rule,[6] and in turn inspired movements for civil rights and freedom across the world. The honorific Mahātmā (Sanskrit: "great-souled", "venerable"), first applied to him in 1914 in South Africa, is now used throughout the world.[7][8]
 
-Born and raised in a Hindu family in coastal Gujarat, western India, Gandhi was trained in law at the Inner Temple, London, and called to the bar at age 22 in June 1891. After two uncertain years in India, where he was unable to start a successful law practice, he moved to South Africa in 1893 to represent an Indian merchant in a lawsuit. He went on to stay for 21 years. It was in South Africa that Gandhi raised a family, and first employed nonviolent resistance in a campaign for civil rights. In 1915, aged 45, he returned to India. He set about organising peasants, farmers, and urban labourers to protest against excessive land-tax and discrimination. Assuming leadership of the Indian National Congress in 1921, Gandhi led nationwide campaigns for easing poverty, expanding women's rights, building religious and ethnic amity, ending untouchability, and above all for achieving Swaraj or self-rule.[9]
-</p>
+{% endfor %}
+</div>
 
 
+</div>
 <script>
 //Get the button
 var mybutton = document.getElementById("myBtn");

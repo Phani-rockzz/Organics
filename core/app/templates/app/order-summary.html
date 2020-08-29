@@ -64,10 +64,18 @@
 
         {% endfor %}
 
-        {% if object.get_total_price %}
+        {% if object.total %}
+        <tr>
+            <td colspan="4"><b>Shipping charges</b></td>
+            {% if object.total <= 999 %}
+            <td>Rs. 40</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+        </tr>
         <tr>
             <td colspan="4"><b>Total Order Price</b></td>
-            <td>Rs.{{ object.get_total_price }}</td>
+            <td>Rs.{{ object.total }}</td>
         </tr>
          <tr>
             <td colspan="5">

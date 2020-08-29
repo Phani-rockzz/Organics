@@ -1,0 +1,28 @@
+﻿﻿{% extends "blog/base.html" %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+
+    <div class="justify-content-center col-md-10 ">
+        {% if object_list %}
+    {% for post in object_list %}
+
+    <div class="post center" style="text-align: center">
+        <h3><b><a href="{% url 'blog:post_detail' pk=post.pk %}" style="color: #0c5460">{{ post.title }}</a></b></h3>
+        <div class="date">
+            <p style="color: #0c5460">published on: {{ post.published_date|date:'D M Y' }}</p>
+        </div>
+        <a href="{% url 'blog:post_detail' pk=post.pk %}"><i class="fas fa-comments"></i> {{ post.approve_comments.count }}</a>
+    </div><hr>
+    {% endfor %}
+        {% else %}
+        <h5>Sorry! No posts available</h5>
+     {% endif %}
+</div>
+
+
+</div>
+</div>
+{% endblock %}

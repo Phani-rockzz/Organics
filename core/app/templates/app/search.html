@@ -13,10 +13,7 @@
 <br/>
 <br/>
 <br/><br/>
-    {% if object_list != "" %}
-    {% if object_list %}
-        <h2>Search for products</h2>
-    {% endif %}
+
 
  <div class="row">
     {% if object_list %}
@@ -34,9 +31,9 @@
           <!-- Card content -->
           <div class="card-body">
               <!-- Title -->
-              <h4 class="card-title">{{ product.product_name }}</h4>
+              <h4 class="card-title">{{ product.item_name }}</h4>
               <!-- Text -->
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text">{{ product.price }}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Product</a>
           </div>
@@ -46,7 +43,7 @@
       {% endfor %}
         {% elif not object_list %}
         <h3>Sorry! no data found, please try again.</h3>
-     {% endif %}
+
      {% endif %}
 
 

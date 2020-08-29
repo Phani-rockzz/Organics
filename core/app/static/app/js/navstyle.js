@@ -1,9 +1,6 @@
 
 
 
-tinymce.init({
-        selector: '#mytextarea'
-});
 
 
 

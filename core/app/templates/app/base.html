@@ -19,7 +19,7 @@
       <!-- Font Awesome --->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
             <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="{% static 'app/css/Bootstrap.min.css' %}">
+          <link rel="stylesheet" href="{% static 'app/css/Bootstrap.min.css' %}">
 
 
       <!--- Your custom styles --->
@@ -28,13 +28,17 @@
 
 
       <!-- MDB icon -->
-      <link rel="icon" href= "{% static 'app/img/mdb-favicon.ico' %}" type="image/x-icon">
+      <link rel="icon" href= "{% static 'app/img/F_M_O_Final_5.png' %}" type="image/x-icon">
 
       <!-- Google Fonts Roboto -->
       <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
       <!-- MDB -->
       <link rel="stylesheet" href="{% static 'app/css/mdb.min.css' %}" />
+
+      <!-- owl carousel-->
+        <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'app/css/owl.theme.default.min.css' %}">
 
 
   <style>
@@ -115,19 +119,19 @@
 
 
   <!--- message us float button --->
-  <a class="floating-btn" id="contact" href="{% url 'app:contact' %}" title="Contact page"><i class="far fa-envelope"></i></a>
+  <a class="floating-btn" id="contact" href="https://wa.me/message/U67YCWJP53G3J1" title="Whatsapp"><i class="fab fa-whatsapp fa-3x"></i></a>
   <!--- search float button --->
-  <a class="floating-btns" href="{% url 'app:search' %}" title="search"><i class="fas fa-search"></i></a>
+  <a class="floating-btns" href="{% url 'app:search' %}" title="search"><i class="fas fa-search "></i></a>
 
 
       <nav class="navbar fixed-top navbar-toggleable-sm navbar-expand-lg scrolling-navbar double-nav">
         <div class="float-left">
-          <span style="font-size:25px;cursor:pointer" onclick="openNav()"><i class="fas fa-bars"></i></span></div>
+          {% comment %}<span style="font-size:25px;cursor:pointer" onclick="openNav()"><i class="fas fa-bars" data-target="#mySidenav" data-toggle="mySidenav"></i></span>{% endcomment %}</div>
 
          <!-- Breadcrumb-->
         <div class="breadcrumb-dn mr-auto ml-5">
           <a class="navbar-brand" href="#">
-           <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" class="d-inline-block align-top" alt="mdb logo"> Bootstrap </a>
+           <img src="{% static 'app/img/F_M_O_Final_6.png' %}" height="40" class="d-inline-block align-top" alt="mdb logo" style=""> Farmway Organics </a>
         </div>
 
         <ul class="nav navbar-nav d-inline-block  ml-auto">
@@ -139,7 +143,7 @@
             <a class="nav-link" href="{% url 'app:products' %}" title="Products"><i class="fab fa-product-hunt" aria-hidden="true"></i> <span class="clearfix d-none d-md-inline-block"> Products </span></a>
           </li>
           <li class="nav-item  d-inline-block px-2">
-            <a class="nav-link" href="#" title="Blog"><i class="fas fa-blog" aria-hidden="true"></i> <span class="clearfix d-none d-md-inline-block"> Blog </span></a>
+            <a class="nav-link" href="{% url 'blog:post_list' %}" title="Blog"><i class="fas fa-blog" aria-hidden="true"></i> <span class="clearfix d-none d-md-inline-block"> Blog </span></a>
           </li>
         {% if user.is_authenticated %}
           <li class="nav-item  d-inline-block px-2">
@@ -173,7 +177,7 @@
 
        </nav>
 
-
+    {% comment %}
      <div id="mySidenav" class="sidenav mt-5">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
      <ul class="custom-scrollbar">
@@ -294,7 +298,7 @@
          </li>
              </ul></li></ul>
      </div>
-
+    {% endcomment %}
 
 
 
@@ -333,7 +337,7 @@
 
     </div>
     {% include 'app/footer.html' %}
-      <script src="{% static 'app/js/navstyle.js' %}"></script>
+      <script src="{% static 'app/js/navstyle.js' %}" async></script>
     {% include 'app/scripts.html' %}
 
 
