@@ -22,6 +22,8 @@ class RegisterForm(UserCreationForm):
     strip=False,
 
     )
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    phone = PhoneNumberField(widget=forms.NumberInput(attrs={'placeholder': 'Phone Number'}))
 
 
     class Meta:
@@ -34,8 +36,9 @@ class RegisterForm(UserCreationForm):
 
 
 PAYMENT = (
-    ('P', 'Paytm/Debit/Credit Card'),
-    ('C', 'cod')
+    ('P', 'Paytm'),
+    ('C', 'cod'),
+    ('D', 'debit/credit card')
 )
 
 
@@ -46,8 +49,7 @@ class CheckoutForm(forms.ModelForm):
                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter address..'}))
     city = forms.CharField(max_length=500, label="city", required=True,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter city..'}))
-    state = forms.CharField(max_length=500, label="state", required=True,
-                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter state..'}))
+
     zipcode = forms.CharField(label="address", required=True,
                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'zip code'}))
     payment_option = forms.ChoiceField(

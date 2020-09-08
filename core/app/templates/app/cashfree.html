@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
         <div class="jumbotron">
+            <div class="center text-success" >
           <h2>Your Order details</h2><br>
           <p>Name : {{order.user.name}}</p>
           <p>Email : {{order.user.email}}</p>
@@ -11,12 +12,12 @@
           <h4>Product : {{order_item.item.item_name}}</h4>
           <h4>Quantity : {{order_item.quantity}}</h4>
           {% endfor %}
-          <h3>Amount : {{order.get_total_price}}</h3><br>
+                <h4>Amount : <b>{{order.total}}</b></h4><br>
           <form action="{% url 'app:request' %}">
-              <input type="submit" value="click to pay" />
+              <input type="submit" class="btn btn-warning" value="click here to pay" />
           </form>
 
-        </div>
+        </div></div>
 
 
 

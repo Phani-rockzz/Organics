@@ -13,7 +13,7 @@ def VerifyPaytmResponse(response):
             data_dict[key] = response.POST[key]
         MID = data_dict['MID']
         ORDERID = data_dict['ORDERID']
-        verify = checksum.verifySignature(data_dict, settings.PAYTM_MERCHANT_KEY, data_dict['CHECKSUMHASH'])
+        verify = checksum.verifySignature(data_dict, settings.PAYTM_MERCHANT_KEY, data_dict)
         if verify:
             STATUS_URL = settings.PAYTM_TRANSACTION_STATUS_URL
             headers = {

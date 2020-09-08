@@ -1,0 +1,7 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% for k,v in response.return_data.items %}
+    {{ k }} =  {{ v }} <br>
+
+{% endfor %}
+{% endblock %}

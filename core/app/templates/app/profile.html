@@ -1,0 +1,64 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated %}
+            <h3 class="center text-success">Hello {{ user.name }}, welcome to farmway organics </h3><hr>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 center">
+
+            <h3 class="text-danger"><u>Account Information:</u></h3>
+            <h5 style="color: #0c5460">Email address : {{ user.email }}</h5>
+            <h5 style="color: #0c5460">Name : {{ user.name }}</h5>
+            <h5 style="color: #0c5460">Phone number : {{ user.phone }}</h5>
+            <h5>If you would like to change password <a class="text-success" href="{% url 'app:change_password' %}">Click here!</a></h5>
+
+        </div>
+
+        <div class="col-md-3"></div>
+    </div><hr>
+    {% endif %}
+    <h3 class="text-danger center"><u>Order Information:</u></h3>
+    {% if data %}
+    <h5 style="color:teal;"><a class="text-success" href="{% url 'app:orders' %}">Click here!</a> to view the full order details.</h5>
+<table class="table">
+        <thead>
+        <tr class="text-danger">
+            <th scope="col">#</th>
+            <th scope="col">Order Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Ship To</th>
+            <th scope="col">Order Total</th>
+            <th scope="col">Payment Mode</th>
+
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in data %}
+        {% if order.ordered == True %}
+        <tr class="text-success">
+            <th scope="row" class="text-danger">{{ forloop.counter }}</th>
+            <td>{{ order.payment.txn_id }}</td>
+            <td>{{ order.ordered_date }}</td>
+            <td>{{ order.user.name }}</td>
+            <td>{{ order.total }}</td>
+            {% if order.mode == True %}
+            <td>Online</td>
+            {% else %}
+            <td>COD</td>
+            {% endif %}
+
+            <td></td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+        </tbody></table>
+
+    {% endif %}
+
+
+</div>
+{% endblock %}

@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'app.apps.AppConfig',
     'blog.apps.BlogConfig',
+    'paytm',
+    'paywix',
+
 
 ]
 # EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
@@ -169,3 +172,12 @@ PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IN'
+
+
+PAYU_CONFIG = {
+        "merchant_key": "5cBJaTwT",
+        "merchant_salt": "4C2gwCohCQ",
+        "mode": "test",
+        "success_url": "http://127.0.0.1:8000/payu_success/",
+        "failure_url": "http://127.0.0.1:8000/failure/"
+  }

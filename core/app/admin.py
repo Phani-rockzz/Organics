@@ -2,12 +2,14 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from . import models
 from django.utils.translation import gettext as _
-from .models import Item, Order, OrderItem, CheckoutAddress, Contact, Payment
-
-
+from .models import Item, Order, OrderItem, CheckoutAddress, Contact, Payment, PaytmHistory
 from django.urls import path
 
 # Register your models here.
+
+
+class PaytmHistoryAdmin(admin.ModelAdmin):
+    list_display = ('user', 'MID', 'TXNAMOUNT', 'STATUS')
 
 
 class UserAdmin(BaseUserAdmin):
@@ -35,3 +37,4 @@ admin.site.register(OrderItem)
 admin.site.register(CheckoutAddress)
 admin.site.register(Contact)
 admin.site.register(Payment)
+admin.site.register(PaytmHistory, PaytmHistoryAdmin)

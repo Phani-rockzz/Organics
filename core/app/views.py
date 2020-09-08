@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import ListView, DetailView, View
-from .models import Item, OrderItem, Order, CheckoutAddress, Payment
+from .models import Item, OrderItem, Order, CheckoutAddress, Payment, User, PaytmHistory
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity, TrigramDistance
 from django.db.models import Q
 from django.utils import timezone
@@ -23,10 +23,7 @@ from django.views.decorators.csrf import csrf_exempt  # new
 from django.template.loader import render_to_string
 from . import checksum
 from .utils import VerifyPaytmResponse
-
-
 user = settings.AUTH_USER_MODEL
-
 
 
 # Create your views here.
@@ -47,6 +44,28 @@ class ProductView(DetailView):
     template_name = "app/product.html"
 
 
+@login_required
+def user_profile(request):
+    order = Order.objects.filter(user=request.user)
+    return render(request, 'app/profile.html', {'data': order})
+
+@login_required
+def get_order(request):
+    order = Order.objects.filter(user=request.user).order_by('-ordered_date')
+    return render(request, 'app/orders.html', {'data': order})
+
+def password_change_done(request):
+    return render(request, 'app/password_change_done.html')
+
+@login_required
+def get_order_details(request, pk):
+    address = CheckoutAddress.objects.filter(user=request.user, pk=pk)
+    payment = Payment.objects.filter(user=request.user, pk=pk)
+    order = Order.objects.filter(user=request.user, pk=pk).prefetch_related('items').select_related('address').select_related('payment')
+
+    return render(request, 'app/order_details.html', {'object': order, 'object1': address, 'object2': payment})
+
+
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
 
@@ -58,7 +77,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return render(self.request, 'app/order-summary.html', context)
 
         except ObjectDoesNotExist:
-            messages.error(self.request, "You do not have an order")
+            messages.error(self.request, "You do not have an order", extra_tags='alert alert-error')
             return redirect("/")
 
 
@@ -77,7 +96,10 @@ class CheckoutView(View):
 
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
+
+
             if form.is_valid():
+
                 phone = form.cleaned_data.get('phone')
                 address = form.cleaned_data.get('address')
                 city = form.cleaned_data.get('city')
@@ -97,17 +119,27 @@ class CheckoutView(View):
                     zipcode=zipcode
                 )
                 checkout_address.save()
-                order.checkout_address = checkout_address
+                order.address = checkout_address
                 order.save()
 
                 if payment_option == 'P':
                     return redirect('app:cash')
                 elif payment_option == 'C':
+                    order_id = checksum.__id_generator__()
+                    payment = Payment.objects.create(user=self.request.user, amount=order.total())
+                    payment.user = order.user
+                    payment.txn_id = order_id
+                    payment.offline = True
+                    payment.paid = False
+                    payment.save()
                     order.ordered = True
+                    order.payment = payment
                     order.save()
                     messages.success(self.request, "Thank u, Your order was successful", extra_tags='alert '
                                                                                                     'alert-success')
                     return redirect('app:success')
+                elif payment_option == 'D':
+                    return redirect('app:payu_cash')
                 else:
                     messages.warning(self.request, "Invalid payment option", extra_tags='alert alert-warning')
                     return redirect("app:checkout")
@@ -125,69 +157,155 @@ class CheckoutView(View):
 @csrf_exempt
 def response(request):
     order = Order.objects.filter(ordered=False).first()
-    payment = Payment.objects.filter(paid=False)
-    resp = VerifyPaytmResponse(request)
-    if resp['verified']:
+    payment = Payment.objects.filter(paid=False, offline=True)
 
-        for p in payment:
-            p.user = order.user
-            p.paid = True
-            p.save()
+    if request.method == "POST":
+        MERCHANT_KEY = settings.PAYTM_MERCHANT_KEY
+        data_dict = {}
+        for key in request.POST:
+            data_dict[key] = request.POST[key]
+        verify = checksum.verifySignature(data_dict, MERCHANT_KEY, data_dict['CHECKSUMHASH'])
+        if verify:
+            for p in payment:
+                p.paid = True
+                p.offline = False
+                p.save()
 
-        order.ordered = True
-        order.order = payment
-        order.save()
+            order.ordered = True
+            order.mode = True
+            order.payment = p
+            order.save()
+            PaytmHistory.objects.create(user=order.user, **data_dict)
+            return render(request, "app/response.html", {"paytm": data_dict})
+        else:
+            return HttpResponse("checksum verify failed")
+    return HttpResponse(status=200)
 
-        return HttpResponse('<html><center><h1 class="text-green">Transaction Successful</h1><br> '
-                            '<h4>Keep Shopping with us.</h4></center></html>', status=200)
-    else:
-        # check what happened; details in resp['paytm']
-
-        #data = {'details': resp['paytm']['ORDERID'], 'txn': resp['paytm']['TXNID'], 'status': resp['paytm']['STATUS']}
-        #return HttpResponse(json.dumps(data), content_type='application/json', status=400)
-        return HttpResponse('<html><center><h1 class="text-green">Transaction Failed</h1><br></center></html>', status=400)
-
+@login_required
 def paytm(request):
     order = Order.objects.get(user=request.user, ordered=False)
-    payment = Payment.objects.create(user=request.user, amount=order.get_total_price())
-    payment.save()
+
     order_id = checksum.__id_generator__()
     bill_amount = order.total()
-    data_dict = {
-        'MID': settings.PAYTM_MERCHANT_ID,
-        'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
-        'WEBSITE': settings.PAYTM_WEBSITE,
-        'CHANNEL_ID': settings.PAYTM_CHANNEL_ID,
-        'CALLBACK_URL': settings.PAYTM_CALLBACK_URL,
-        'MOBILE_NO': order.user.phone,
-        'EMAIL': order.user.email,
-        'CUST_ID': order.user.id,
-        'ORDER_ID': order_id,
-        'TXN_AMOUNT': bill_amount,
-    }  # This data should ideally come from database
-    data_dict['CHECKSUMHASH'] = checksum.generateSignature(data_dict, settings.PAYTM_MERCHANT_KEY)
-    payment.checksum = data_dict['CHECKSUMHASH']
-    payment.txn_id = order_id
-    payment.save()
-    context = {
-        'payment_url': settings.PAYTM_PAYMENT_GATEWAY_URL,
-        'company_name': settings.PAYTM_COMPANY_NAME,
-        'data_dict': data_dict
+    if bill_amount:
+        data_dict = {
+            'MID': settings.PAYTM_MERCHANT_ID,
+            'ORDER_ID': order_id,
+            'TXN_AMOUNT': bill_amount,
+            'CUST_ID': order.user.id,
+            'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
+            'WEBSITE': settings.PAYTM_WEBSITE,
+            'CHANNEL_ID': settings.PAYTM_CHANNEL_ID,
+            'CALLBACK_URL':settings.PAYTM_CALLBACK_URL,
+
+        }
+        param_dict = data_dict
+        param_dict['CHECKSUMHASH'] = checksum.generateSignature(data_dict, settings.PAYTM_MERCHANT_KEY)
+        payment = Payment.objects.create(user=request.user, amount=order.total())
+        payment.checksum = param_dict['CHECKSUMHASH']
+        payment.txn_id = order_id
+        payment.user = order.user
+        payment.save()
+        order.payment = payment
+        order.save()
+        context = {
+            'payment_url': settings.PAYTM_PAYMENT_GATEWAY_URL,
+            'company_name': settings.PAYTM_COMPANY_NAME,
+            'paytmdict': param_dict,
+        }
+        return render(request, "app/request.html", context)
+    return HttpResponse("Bill Amount Could not find. ?bill_amount")
+
+
+from paywix.payu import Payu
+
+payu_config = settings.PAYU_CONFIG
+merchant_key = payu_config.get('merchant_key')
+merchant_salt = payu_config.get('merchant_salt')
+surl = payu_config.get('success_url')
+furl = payu_config.get('failure_url')
+mode = payu_config.get('mode')
+
+# Create Payu Object for making transaction
+# The given arguments are mandatory
+payu = Payu(merchant_key, merchant_salt, surl, furl, mode)
+
+
+# Payu checkout page
+@csrf_exempt
+@login_required
+def payu_checkout(request):
+
+    address = CheckoutAddress.objects.filter(user=request.user)
+    order = Order.objects.get(user=request.user, ordered=False)
+    order_id = checksum.__id_generator__()
+    bill_amount = order.total()
+
+
+    # The dictionary data  should be contains following details
+    data = {'amount': bill_amount,
+            'firstname': order.user.name,
+            'email': order.user.email,
+            'phone': order.user.phone, 'productinfo': 'organic fertilizer',
+            'lastname': 'user', 'address1': order.address.phone,
+            'address2': order.address.address, 'city': order.address.city,
+            'state': order.address.state, 'country': 'india',
+            'zipcode': order.address.zipcode, 'udf1': '',
+            'udf2': '', 'udf3': '', 'udf4': '', 'udf5': ''
     }
-    return render(request, 'app/request.html', context)
+
+    # No Transactio ID's, Create new with paywix, it's not mandatory
+    # Create your own
+    # Create transaction Id with payu and verify with table it's not existed
+    payment = Payment.objects.create(user=request.user, amount=order.total())
+
+    payment.txn_id = order_id
+    payment.user = order.user
+    payment.save()
+    order.payment = payment
+    order.save()
+    txnid = order_id
+    data.update({"txnid": txnid})
+    payu_data = payu.transaction(**data)
+    return render(request, 'app/payu_checkout.html', {"posted": payu_data})
 
 
+@csrf_exempt
+def payu_success(request):
+    order = Order.objects.filter(ordered=False).first()
+    payment = Payment.objects.filter(paid=False)
+
+    data = {k: v[0] for k, v in dict(request.POST).items()}
+    response = payu.verify_transaction(data)
+    if response['return_data']['status'] == 'success':
+        for p in payment:
+
+            p.paid = True
+            p.offline = False
+            p.save()
+        order.payment = p
+        order.ordered = True
+        order.mode = True
+        order.save()
+
+    return render(request, 'app/payu_success.html', {'response': response})
+
+@csrf_exempt
+def payu_failure(request):
+    data = {k: v[0] for k, v in dict(request.POST).items()}
+    response = payu.verify_transaction(data)
+    return render(request, 'app/payu_success.html', {'response': response})
+
+@login_required
+def payu_cash(request):
+    return render(request, 'app/payu_cash.html')
+
+@login_required
 def cash(request):
     order = Order.objects.get(user=request.user, ordered=False)
     context = {'order': order}
 
     return render(request, 'app/cashfree.html', context)
-
-
-
-
-
-
 
 
 def base_layout(request):
@@ -199,7 +317,6 @@ def success(request):
 
 
 def register(request):
-
     registered = False
     if request.method == 'POST':
         form = RegisterForm(data=request.POST)
@@ -298,17 +415,17 @@ def add_to_cart(request, pk):
         if order.items.filter(item__pk=item.pk).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "Added quantity Item")
+            messages.info(request, "Added quantity Item", extra_tags='alert alert-info')
             return redirect("app:order-summary")
         else:
             order.items.add(order_item)
-            messages.info(request, "Item added to your cart")
+            messages.info(request, "Item added to your cart", extra_tags='alert alert-info')
             return redirect("app:order-summary")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, "Item added to your cart")
+        messages.info(request, "Item added to your cart", extra_tags='alert alert-info')
         return redirect("app:order-summary")
 
 
@@ -328,14 +445,15 @@ def remove_from_cart(request, pk):
                 ordered=False
             )[0]
             order_item.delete()
-            messages.info(request, "Item \"" + order_item.item.item_name + "\" remove from your cart")
+            messages.info(request, "Item \"" + order_item.item.item_name + "\" remove from your cart",
+                          extra_tags='alert alert-info')
             return redirect("app:order-summary")
         else:
-            messages.info(request, "This Item not in your cart")
+            messages.info(request, "This Item not in your cart", extra_tags='alert alert-info')
             return redirect("app:product", pk=pk)
     else:
         # add message doesnt have order
-        messages.info(request, "You do not have an Order")
+        messages.warning(request, "You do not have an Order", extra_tags='alert alert-warning')
         return redirect("app:product", pk=pk)
 
 
@@ -359,12 +477,12 @@ def reduce_quantity_item(request, pk):
                 order_item.save()
             else:
                 order_item.delete()
-            messages.info(request, "Item quantity was updated")
+            messages.info(request, "Item quantity was updated", extra_tags='alert alert-info')
             return redirect("app:order-summary")
         else:
-            messages.info(request, "This Item not in your cart")
+            messages.info(request, "This Item not in your cart", extra_tags='alert alert-info')
             return redirect("app:order-summary")
     else:
         # add message doesnt have order
-        messages.info(request, "You do not have an Order")
+        messages.info(request, "You do not have an Order", extra_tags='alert alert-info')
         return redirect("app:order-summary")

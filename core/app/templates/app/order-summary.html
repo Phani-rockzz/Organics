@@ -8,6 +8,7 @@
     <h3>
         <strong>Your Cart</strong>
     </h3>
+
     <table class="table">
         <thead>
         <tr>
@@ -61,22 +62,26 @@
                 <a href="/" class="btn btn-primary float-right">Continue Shopping</a>
             </td>
         </tr>
+    {% endfor %}
 
-        {% endfor %}
 
-        {% if object.total %}
+
         <tr>
             <td colspan="4"><b>Shipping charges</b></td>
             {% if object.total <= 999 %}
-            <td>Rs. 40</td>
+
+                <td>{{ object.shipping_price }}</td>
             {% else %}
-            <td>-</td>
+            <td> - </td>
             {% endif %}
+
         </tr>
+
         <tr>
             <td colspan="4"><b>Total Order Price</b></td>
             <td>Rs.{{ object.total }}</td>
         </tr>
+
          <tr>
             <td colspan="5">
                 <a href="{% url 'app:checkout' %}" class="btn btn-warning float-right ml-2">Checkout</a>
@@ -84,10 +89,13 @@
             </td>
         </tr>
 
-        {% endif %}
+
 
         </tbody>
     </table>
+
+
+
 
         </div>
     </div>

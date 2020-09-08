@@ -93,10 +93,10 @@
                 </ul><br>
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                <p>{{ object.description }}</p>
+                <p>{{ object.description|safe }}</p>
               </div>
               <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
-                <p>{{ object.usage }}</p>
+                <p>{{ object.usage|safe }}</p>
               </div>
 
             </div>

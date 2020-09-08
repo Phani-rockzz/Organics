@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.shortcuts import reverse
 from phonenumber_field.modelfields import PhoneNumberField
-
+from tinymce.models import HTMLField
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 from datetime import date
@@ -65,8 +66,8 @@ class Item(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True, editable=True, default='images/blog-default.jpg')
 
-    description = models.TextField()
-    usage = models.TextField(blank=True, null=True)
+    description = HTMLField()
+    usage = HTMLField(blank=True, null=True)
 
     def __str__(self):
         return self.item_name
@@ -127,24 +128,35 @@ class OrderItem(models.Model):
         return self.get_total_item_price()
 
 
+def increment_order_number():
+
+    last_order = Order.objects.all().order_by('id').last()
+    if not last_order:
+        return 'ORD0001'
+    order_no = last_order.order_no
+    new_order_no = str(int(order_no[4:]) + 1)
+    new_order_no = order_no[0:-(len(new_order_no))] + new_order_no
+    return new_order_no
 
 
 class Order(models.Model):
+    order_no = models.CharField(max_length=500, default=increment_order_number, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    items = models.ManyToManyField(OrderItem)
+    items = models.ManyToManyField(OrderItem, related_name='order_items')
     start_date = models.DateTimeField(auto_now_add=True, null=True)
     ordered_date = models.DateTimeField(null=True)
     ordered = models.BooleanField(default=False)
     address = models.ForeignKey(
-        'CheckoutAddress', on_delete=models.SET_NULL, blank=True, null=True, related_name="+")
+        'CheckoutAddress', on_delete=models.SET_NULL, blank=True, null=True)
     payment = models.ForeignKey(
-        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+        'Payment', on_delete=models.SET_NULL, blank=True, null=True, )
+    mode = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return self.user.email
 
     def get_min_amount(self):
-        return int(999)
+        return 999
 
     def shipping_price(self):
         return 40
@@ -158,6 +170,7 @@ class Order(models.Model):
 
     def total(self):
         total = 0
+
         if self.get_total_price() < self.get_min_amount():
             total += self.get_total_price() + self.shipping_price()
         else:
@@ -166,18 +179,26 @@ class Order(models.Model):
 
 
 
+
+
 # address
 class CheckoutAddress(models.Model):
+    STATE_CHOICES = (
+        ('andhra pradesh', 'ANDHRA PRADESH'),
+        ('telangana', 'TELANGANA'),
+
+    )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     phone = PhoneNumberField(null=True)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
-    state = models.CharField(max_length=200, null=False)
+    state = models.CharField(max_length=200, null=False, choices=STATE_CHOICES, default='telangana')
     zipcode = models.CharField(max_length=200, null=False)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.email
+
 
 
 class Contact(models.Model):
@@ -191,16 +212,41 @@ class Contact(models.Model):
 
 
 class Payment(models.Model):
+    PAYMENT_CHOICES = (
+        ('O', 'Online'),
+        ('C', 'Cod'),
+    )
     txn_id = models.CharField(max_length=500)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, blank=True, null=True)
-    amount = models.FloatField()
+    amount = models.FloatField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     checksum = models.CharField(max_length=255, null=True, blank=True)
     paid = models.BooleanField(default=False)
+    offline = models.BooleanField(default=True, blank=True, null=True)
 
     def __str__(self):
         return self.user.email
 
+class PaytmHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='rel_payment_paytm', on_delete=models.SET_NULL, null=True)
+    ORDERID = models.CharField('ORDER ID', max_length=30)
+    TXNDATE = models.DateTimeField('TXN DATE', default=timezone.now)
+    TXNID = models.DecimalField('TXN ID', decimal_places=2, max_digits=50)
+    BANKTXNID = models.BigIntegerField('BANK TXN ID', null=True, blank=True)
+    BANKNAME = models.CharField('BANK NAME', max_length=50, null=True, blank=True)
+    RESPCODE = models.BigIntegerField('RESP CODE')
+    PAYMENTMODE = models.CharField('PAYMENT MODE', max_length=10, null=True, blank=True)
+    CURRENCY = models.CharField('CURRENCY', max_length=4, null=True, blank=True)
+    GATEWAYNAME = models.CharField("GATEWAY NAME", max_length=30, null=True, blank=True)
+    MID = models.CharField(max_length=40)
+    RESPMSG = models.TextField('RESP MSG', max_length=250)
+    TXNAMOUNT = models.FloatField('TXN AMOUNT')
+    STATUS = models.CharField('STATUS', max_length=12)
 
+    class Meta:
+        app_label = 'paytm'
+
+    def __str__(self):
+        return self.STATUS
 

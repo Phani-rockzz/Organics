@@ -3,9 +3,10 @@
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 {% load cart_template_tags %}
+{% load pwa %}
   <html lang="en" dir="ltr">
     <head>
-
+        {% progressive_web_app_meta %}
 
       <meta name = "viewport" content= "width=device-width"  initial-scale=1, shrint-to-fit="no">
       <meta charset="utf-8">
@@ -159,8 +160,8 @@
               <i class="far fa-user"></i> <span class="clearfix d-none d-md-inline-block"> Account </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Orders</a>
+                <a class="dropdown-item" href="{% url 'app:profile' %}">Profile</a>
+                <a class="dropdown-item" href="{% url 'app:orders' %}">Orders</a>
                 <a class="dropdown-item" href="{% url 'app:logout' %}">Logout</a>
             </div>
           </li>

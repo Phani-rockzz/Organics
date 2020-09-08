@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="container">
+<h4 class="center text-danger">Your Order Details.</h4>
+{% if data %}
+<table class="table">
+        <thead>
+        <tr class="text-danger">
+            <th scope="col">#</th>
+            <th scope="col">Order Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Ship To</th>
+            <th scope="col">Order Total</th>
+            <th scope="col">Payment Mode</th>
+            <th scope="col">Ordered</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in data %}
+        {% if order.ordered == True %}
+        <tr class="text-success">
+            <th scope="row" class="text-danger">{{ forloop.counter }}</th>
+            <td>{{ order.order_no }}</td>
+            <td>{{ order.ordered_date }}</td>
+            <td>{{ order.user.name }}</td>
+            <td>{{ order.payment.amount }}</td>
+            {% if order.mode == True %}
+            <td>Online</td>
+            {% else %}
+            <td>COD</td>
+            {% endif %}
+            <td>{{ order.ordered }}</td>
+            <td></td>
+            <td><a href="{% url 'app:details'  pk=order.pk %}">View details</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+        </tbody></table>
+
+
+{% endif %}
+</div>
+
+{% endblock %}

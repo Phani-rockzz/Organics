@@ -1,0 +1,67 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="container">
+    <h4 class="text-danger center">About this Order.</h4>
+    {% if object %}
+    {% for order_item in object %}
+    <table class="table">
+        <thead>
+        <tr class="text-danger">
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Sub Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order_item.items.all %}
+        <tr class="text-success">
+            <td>{{ item.item.item_name }}</td>
+            <td>₹{{ item.item.price }}</td>
+            <td>ordered:{{ item.quantity }}</td>
+            <td>{{ item.get_final_price}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+    <div class="col-md-6 center text-black-50">
+    <h5 class="text-danger">shipping Address</h5>
+        {% for object in object %}
+        <h6 class="text-success">Phone number : {{ object.address.phone }}</h6>
+        <h6 class="text-success">Street Address : {{ object.address.address }}</h6>
+        <h6 class="text-success">City : {{ object.address.city }}</h6>
+        <h6 class="text-success">State : {{ object.address.state }}</h6>
+        <h6 class="text-success">Zip : {{ object.address.zipcode }}</h6>
+        {% endfor %}
+
+    </div>
+    <div class="col-md-6">
+    <h5 class="text-danger">Payment details</h5>
+
+        {% for object in object %}
+        {% if object.mode == True and object.payment.offline == False and object.payment.paid == True %}
+        <h6 class="text-success">Transaction id : {{ object.payment.txn_id }}</h6>
+        <h6 class="text-success">Amount : {{ object.payment.amount }}</h6>
+        <h6 class="text-success">Date : {{ object.payment.timestamp }} </h6>
+        <h6 class="text-success">Paid : {{ object.payment.paid }}</h6>
+
+
+        {% elif object.mode == True and object.payment.offline == False and object.payment.paid == False %}
+        <h6>sorry it seems transaction failed.</h6>
+        {% else %}
+        <h6 class="text-success">Transaction id : {{ object.payment.txn_id }}</h6>
+        <h6 class="text-success">Amount : {{ object.payment.amount }}</h6>
+        <h6 class="text-success">Date : {{ object.payment.timestamp }} </h6>
+        <h6 class="text-success">Paid : {{ object.payment.paid }}</h6>
+        <h6 class="text-danger">Note : You have opted for cash on delivery.</h6>
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+    {% endfor %}{% endif %}
+
+</div>
+
+{% endblock %}

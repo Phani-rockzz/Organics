@@ -15,10 +15,16 @@ urlpatterns = [
     path('product/<pk>/', views.ProductView.as_view(), name='product'),
     path('order-summary/', views.OrderSummaryView.as_view(), name='order-summary'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
-
+    path('profile/', views.user_profile, name='profile'),
+    path('orders/', views.get_order, name='orders'),
+    path('order-details/<pk>', views.get_order_details, name='details'),
     path('response/', views.response, name='response'),
     path('request/', views.paytm, name='request'),
     path('success/', views.success, name='success'),
+    path('payu_success/', views.payu_success, name='payu_success'),
+    path('failure/', views.payu_failure, name='failure'),
+    path('payu_cash/', views.payu_cash, name='payu_cash'),
+    path('payu_checkout/', views.payu_checkout, name='payu_checkout'),
     path('cash/', views.cash, name='cash'),
     path('add-to-cart/<pk>/', views.add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<pk>/', views.remove_from_cart, name='remove-from-cart'),
@@ -49,10 +55,9 @@ urlpatterns = [
         'change-password/',
         auth_views.PasswordChangeView.as_view(
             template_name='app/password_change.html',
-            success_url='app/password_change_done.html'
-        ),
-        name='change_password'
-    ),
+            success_url=reverse_lazy('app:password_change_done')),
+        name='change_password'),
+    path('password_change_done/', views.password_change_done, name='password_change_done'),
     path('contact', views.contactview, name='contact')
 
 ]

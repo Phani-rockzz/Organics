@@ -11,7 +11,7 @@ class Post(models.Model):
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/', null=True, blank=True, editable=True, default='https://atlantictravelsusa.com/wp-content/uploads/2016/04/dummy-post-horisontal-thegem-blog-default.jpg')
+    image = models.ImageField(upload_to='images/', null=True, blank=True, editable=True, default='images/blog-default.jpg')
     text = HTMLField()
     create_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(auto_now=True)
