@@ -109,11 +109,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydata',
-        'USER': 'postgres',
-        'PASSWORD': 'sanjayjanu@1',
+        'NAME': 'farmwaydb',
+        'USER': 'farmway_admin',
+        'PASSWORD': 'Admin@sai&phani',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 
