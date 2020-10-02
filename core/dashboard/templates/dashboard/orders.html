@@ -1,0 +1,12 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<div class="container">
+{% if order %}
+{% for data in order %}
+<h4 class="text-success">{{ data.ordered_date }}</h4>
+{% endfor %}
+{% endif %}
+
+</div>
+
+{% endblock %}

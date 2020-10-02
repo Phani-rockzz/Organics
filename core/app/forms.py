@@ -43,13 +43,16 @@ PAYMENT = (
 
 
 class CheckoutForm(forms.ModelForm):
-    phone = PhoneNumberField(label='phone', required=True,
+    name = forms.CharField(max_length=500, label="Name:", required=True,
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter name..'}))
+    phone = PhoneNumberField(label='Phone Number:', required=True,
                              widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter phone...'}))
-    address = forms.CharField(max_length=500, label="address", required=True,
+    address = forms.CharField(max_length=500, label="Address", required=True,
                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter address..'}))
-    city = forms.CharField(max_length=500, label="city", required=True,
+    city = forms.CharField(max_length=500, label="City", required=True,
                            widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter city..'}))
-
+    district = forms.CharField(max_length=500, label="District", required=True,
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'enter district..'}))
     zipcode = forms.CharField(label="address", required=True,
                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'zip code'}))
     payment_option = forms.ChoiceField(
@@ -57,7 +60,7 @@ class CheckoutForm(forms.ModelForm):
 
     class Meta:
         model = CheckoutAddress
-        fields = ['phone', 'address', 'city', 'state', 'zipcode']
+        fields = ['name', 'phone', 'address', 'city', 'district', 'state', 'zipcode']
 
 
 class ContactForm(forms.ModelForm):

@@ -43,10 +43,12 @@ class ProductView(DetailView):
     model = Item
     template_name = "app/product.html"
 
+def about(request):
+    return render(request, 'app/about.html')
 
 @login_required
 def user_profile(request):
-    order = Order.objects.filter(user=request.user)
+    order = Order.objects.filter(user=request.user).order_by('-ordered_date')
     return render(request, 'app/profile.html', {'data': order})
 
 @login_required
@@ -99,10 +101,11 @@ class CheckoutView(View):
 
 
             if form.is_valid():
-
+                name = form.cleaned_data.get('name')
                 phone = form.cleaned_data.get('phone')
                 address = form.cleaned_data.get('address')
                 city = form.cleaned_data.get('city')
+                district = form.cleaned_data.get('district')
                 state = form.cleaned_data.get('state')
                 zipcode = form.cleaned_data.get('zipcode')
                 # TODO: add functionaly for these fields
@@ -112,9 +115,11 @@ class CheckoutView(View):
 
                 checkout_address = CheckoutAddress(
                     user=self.request.user,
+                    name=name,
                     phone=phone,
                     address=address,
                     city=city,
+                    district=district,
                     state=state,
                     zipcode=zipcode
                 )
@@ -142,7 +147,7 @@ class CheckoutView(View):
                     return redirect('app:payu_cash')
                 else:
                     messages.warning(self.request, "Invalid payment option", extra_tags='alert alert-warning')
-                    return redirect("app:checkout")
+                    return redirect("app:checkout", {'order': order})
             else:
 
                 print(form.errors)
@@ -298,7 +303,11 @@ def payu_failure(request):
 
 @login_required
 def payu_cash(request):
-    return render(request, 'app/payu_cash.html')
+    order = Order.objects.get(user=request.user, ordered=False)
+    context = {'order': order}
+
+    return render(request, 'app/payu_cash.html', context)
+
 
 @login_required
 def cash(request):
@@ -486,3 +495,26 @@ def reduce_quantity_item(request, pk):
         # add message doesnt have order
         messages.info(request, "You do not have an Order", extra_tags='alert alert-info')
         return redirect("app:order-summary")
+
+@login_required
+def dashboard(request):
+    order = Order.objects.all().order_by('-ordered_date')
+    return render(request, 'app/dashboard.html', {'order': order})
+
+
+@login_required
+def dashboard_order_details(request, pk):
+    order = Order.objects.filter(pk=pk).order_by('-ordered_date')
+    return render(request, 'app/dashboard_order_details.html', {'object': order})
+
+
+@login_required
+def dashboard_failed(request):
+    order = Order.objects.all().order_by('-ordered_date')
+    return render(request, 'app/dashboard_failed.html', {"object": order})
+
+
+@login_required
+def dashboard_failed_details(request, pk):
+    order = Order.objects.filter(pk=pk).order_by('-ordered_date')
+    return render(request, 'app/dashboard_order_details.html', {'object': order})

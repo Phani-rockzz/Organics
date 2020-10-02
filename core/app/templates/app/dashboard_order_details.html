@@ -1,22 +1,44 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% block content %}
 <div class="container">
-    <h4 class="text-danger center">About this Order.</h4>
+    <strong><h4 class="text-danger center">Order Details:</h4></strong><hr>
     {% if object %}
     {% for order_item in object %}
+    <div class=" col-md-6">
+        {% for object in object %}
+            <h4 class="text-danger"><u>Account Information:</u></h4>
+            <h5 style="color: #0c5460">Email address : {{ object.user.email }}</h5>
+            <h5 style="color: #0c5460">Name : {{ object.user.name }}</h5>
+            <h5 style="color: #0c5460">Phone number : {{ object.user.phone }}</h5><hr>
+            <h5 style="color: #0c5460">Order no : {{ object.order_no }}</h5>
+            <h5 style="color: #0c5460">Order Id : {{ object.payment.txn_id }}</h5>
+            <h5 style="color: #0c5460">Order date : {{ object.ordered_date }}</h5>
+            <h5 style="color: #0c5460">Order Amount : {{ object.payment.amount }}</h5>
+            <h5 style="color: #0c5460">Payment Mode:
+                {% if order.mode == True %}
+                    Online
+                {% else %}
+                    COD
+                {% endif %}
+            </h5>
+        {% endfor %}
+    </div><hr>
+    <h4 class="text-danger center">About the order:</h4>
     <table class="table">
         <thead>
         <tr class="text-danger">
+            <th scope="col">#</th>
             <th scope="col">Product Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Sub Total</th>
-            <th></th>
+
         </tr>
         </thead>
         <tbody>
         {% for item in order_item.items.all %}
         <tr class="text-success">
+            <th scope="row" class="text-danger">{{ forloop.counter }}</th>
             <td>{{ item.item.item_name }}</td>
             <td>₹{{ item.item.price }}</td>
             <td>ordered:{{ item.quantity }}</td>
@@ -36,7 +58,7 @@
         <h6 class="text-success">District : {{ object.address.district }}</h6>
         <h6 class="text-success">State : {{ object.address.state }}</h6>
         <h6 class="text-success">Zip : {{ object.address.zipcode }}</h6>
-
+        <h6 class="text-success">Date/Time : {{ object.address.date_added }}</h6>
         {% endfor %}
 
     </div>
@@ -46,20 +68,20 @@
         {% for object in object %}
         {% if object.mode == True and object.payment.offline == False and object.payment.paid == True %}
         <h6 class="text-success">Transaction id : {{ object.payment.txn_id }}</h6>
-        <h6 class="text-success">Amount : {{ object.payment.amount }}</h6>
+        <h6 class="text-warning">Amount : {{ object.payment.amount }}</h6>
         <h6 class="text-success">Date : {{ object.payment.timestamp }} </h6>
         <h6 class="text-success">Paid : {{ object.payment.paid }}</h6>
-
+        <h6 class="text-success">Date/Time : {{ object.payment.timestamp }}</h6>
 
 
         {% elif object.mode == True and object.payment.offline == False and object.payment.paid == False %}
-        <h6>sorry it seems transaction failed.</h6>
+        <h6 class="text-danger">sorry it seems transaction failed.</h6>
         {% else %}
         <h6 class="text-success">Transaction id : {{ object.payment.txn_id }}</h6>
-        <h6 class="text-success">Amount : {{ object.payment.amount }}</h6>
+        <h6 class="text-warning"><strong>Amount : {{ object.payment.amount }}</strong></h6>
         <h6 class="text-success">Date : {{ object.payment.timestamp }} </h6>
         <h6 class="text-success">Paid : {{ object.payment.paid }}</h6>
-        <h6 class="text-danger">Note : You have opted for cash on delivery.</h6>
+        <h6 class="text-primary">Note : User have opted for cash on delivery.</h6>
         {% endif %}
         {% endfor %}
     </div>

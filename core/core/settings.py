@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'bootstrap_modal_forms',
-    'app.apps.AppConfig',
-    'blog.apps.BlogConfig',
+
     'paytm',
     'paywix',
+    'app',
+    'blog',
+    'dashboard',
 
 
 ]

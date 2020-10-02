@@ -7,6 +7,7 @@ app_name = 'app'
 urlpatterns = [
 
     path('', views.Home.as_view(), name='home'),
+    path('about/', views.about, name='about'),
     path('base_layout/', views.base_layout, name='base_layout'),
     path('signup/', views.register, name='signup'),
     path('signin/', auth_views.LoginView.as_view(template_name='app/login.html'), name='signin'),
@@ -30,6 +31,10 @@ urlpatterns = [
     path('remove-from-cart/<pk>/', views.remove_from_cart, name='remove-from-cart'),
     path('reduce-quantity-item/<pk>/', views.reduce_quantity_item, name='reduce-quantity-item'),
     path('search/', views.search.as_view(), name='search'),
+    path('dashboard/staff/home/', views.dashboard, name='dashboard'),
+    path('dashboard/staff/order/<pk>', views.dashboard_order_details, name='dashboard_order_details'),
+    path('dashboard/staff/failed_orders/', views.dashboard_failed, name='dashboard_failed'),
+    path('dashboard/staff/failed_orders/<pk>', views.dashboard_failed_details, name='dashboard_failed_details'),
     path('password_reset/',
          auth_views.PasswordResetView.as_view(
              template_name='app/password_reset_form.html',

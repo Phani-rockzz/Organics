@@ -1,23 +1,27 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% block content %}
 <div class="container">
-<h4 class="center text-danger">Your Order Details.</h4>
-{% if data %}
+    <h1 style="color: teal; text-align: center">Farmway Organics Dashboard</h1>
+    {% if user.is_authenticated %}
+        <h3 style="text-align: center">Welcome Mr/Mrs. {{ user.name }}</h3>
+    {% endif %}
+    <h3 style="text-align: center;  color: #1b5e20">All Orders </h3>
+{% if order %}
 <table class="table">
         <thead>
         <tr class="text-danger">
             <th scope="col">#</th>
             <th scope="col">Order Id</th>
             <th scope="col">Date</th>
-            <th scope="col">Ship To</th>
+            <th scope="col">Username</th>
             <th scope="col">Order Total</th>
             <th scope="col">Payment Mode</th>
             <th scope="col">Ordered</th>
-            <th scope="col"></th>
+            <th scope="col">Details</th>
         </tr>
         </thead>
         <tbody>
-        {% for order in data %}
+        {% for order in order %}
         {% if order.ordered == True %}
         <tr class="text-success">
             <th scope="row" class="text-danger">{{ forloop.counter }}</th>
@@ -31,16 +35,12 @@
             <td>COD</td>
             {% endif %}
             <td>{{ order.ordered }}</td>
-            <td></td>
-            <td><a href="{% url 'app:details'  pk=order.pk %}">View details</a></td>
+            
+            <td><a href="{% url 'app:dashboard_order_details'  pk=order.pk %}">View details</a></td>
         </tr>
         {% endif %}
         {% endfor %}
-
         </tbody></table>
-
-
 {% endif %}
 </div>
-
 {% endblock %}

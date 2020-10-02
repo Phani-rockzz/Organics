@@ -1,9 +1,16 @@
 {% extends 'app/base.html' %}
 {% block content %}
 <div class="jumbotron">
+
     <center><h3>Thank you Shopping with Us.</h3><br>
         <h1 class="text-green">Your Order was Successful</h1><br>
+        {% if order %}
+        {% for order in order %}
+        <h4>Order Id is : {{ order.payment.txn_id }}</h4>
+        {% endfor %}
+        {% endif %}
         <h4>Have a Good day.</h4>
     </center>
+
 </div>
 {% endblock %}

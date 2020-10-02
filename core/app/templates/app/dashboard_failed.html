@@ -1,15 +1,15 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% block content %}
 <div class="container">
-<h4 class="center text-danger">Your Order Details.</h4>
-{% if data %}
-<table class="table">
+    <h3 style="text-align: center;  color: #1b5e20">Failed Orders and Wishlist orders </h3><hr>
+    {% if object %}
+    <table class="table">
         <thead>
         <tr class="text-danger">
             <th scope="col">#</th>
             <th scope="col">Order Id</th>
             <th scope="col">Date</th>
-            <th scope="col">Ship To</th>
+            <th scope="col">username</th>
             <th scope="col">Order Total</th>
             <th scope="col">Payment Mode</th>
             <th scope="col">Ordered</th>
@@ -17,13 +17,15 @@
         </tr>
         </thead>
         <tbody>
-        {% for order in data %}
-        {% if order.ordered == True %}
-        <tr class="text-success">
+        {% for order in object %}
+        {% if order.ordered == False %}
+        <tr class="text-danger">
             <th scope="row" class="text-danger">{{ forloop.counter }}</th>
             <td>{{ order.payment.txn_id }}</td>
             <td>{{ order.ordered_date }}</td>
+
             <td>{{ order.user.name }}</td>
+
             <td>{{ order.payment.amount }}</td>
             {% if order.mode == True %}
             <td>Online</td>
@@ -31,16 +33,13 @@
             <td>COD</td>
             {% endif %}
             <td>{{ order.ordered }}</td>
+
             <td></td>
-            <td><a href="{% url 'app:details'  pk=order.pk %}">View details</a></td>
-        </tr>
+            <td><a href="{% url 'app:dashboard_failed_details'  pk=order.pk %}">View details</a></td></tr>
         {% endif %}
         {% endfor %}
-
+        {% endif %}
         </tbody></table>
-
-
-{% endif %}
 </div>
 
 {% endblock %}

@@ -97,9 +97,6 @@ class Item(models.Model):
         return url
 
 
-
-
-
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
@@ -117,9 +114,6 @@ class OrderItem(models.Model):
 
     def get_amount_saved(self):
         return self.get_total_item_price() - self.get_discount_item_price()
-
-
-
 
     def get_final_price(self):
         if self.item.discount_price:
@@ -161,7 +155,6 @@ class Order(models.Model):
     def shipping_price(self):
         return 40
 
-
     def get_total_price(self):
         total = 0
         for order_item in self.items.all():
@@ -178,9 +171,6 @@ class Order(models.Model):
         return total
 
 
-
-
-
 # address
 class CheckoutAddress(models.Model):
     STATE_CHOICES = (
@@ -189,16 +179,17 @@ class CheckoutAddress(models.Model):
 
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    phone = PhoneNumberField(null=True)
+    name = models.CharField(max_length=200)
+    phone = PhoneNumberField(null=False)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
+    district = models.CharField(max_length=200)
     state = models.CharField(max_length=200, null=False, choices=STATE_CHOICES, default='telangana')
     zipcode = models.CharField(max_length=200, null=False)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.email
-
 
 
 class Contact(models.Model):
@@ -227,6 +218,7 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.user.email
+
 
 class PaytmHistory(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='rel_payment_paytm', on_delete=models.SET_NULL, null=True)
