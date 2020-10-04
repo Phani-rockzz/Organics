@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'app/static/app/js', 'serviceworker.js')
@@ -57,11 +58,10 @@ INSTALLED_APPS = [
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_USE_TLS = False
 # EMAIL_PORT = 1025
-
+EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'mekapotulaphani@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'phanigoud123@gmail.com'
 EMAIL_HOST_PASSWORD = '8125997699'
@@ -167,7 +167,7 @@ PAYTM_INDUSTRY_TYPE_ID = "Retail"  # For staging environment
 PAYTM_CHANNEL_ID = "WEB"
 PAYTM_MERCHANT_KEY = "Vv5M5Iu9b4Yr5&mv"
 PAYTM_MERCHANT_ID = "cxgUTw88628774174098"
-PAYTM_CALLBACK_URL = "http://localhost:8000/response/"  # Hardcode
+PAYTM_CALLBACK_URL = "https://farmwayorganics.com/response/"  # Hardcode
 PAYTM_WEBSITE = "WEBSTAGING"
 PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
 PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
@@ -180,6 +180,6 @@ PAYU_CONFIG = {
         "merchant_key": "5cBJaTwT",
         "merchant_salt": "4C2gwCohCQ",
         "mode": "test",
-        "success_url": "http://127.0.0.1:8000/payu_success/",
-        "failure_url": "http://127.0.0.1:8000/failure/"
+        "success_url": "https://farmwayorganics.com/payu_success/",
+        "failure_url": "https://farmwayorganics.com/failure/"
   }

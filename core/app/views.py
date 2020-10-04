@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import Http404, HttpResponse, HttpResponseRedirect, request
 from .forms import ContactForm, CheckoutForm
 from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import ListView, DetailView, View
