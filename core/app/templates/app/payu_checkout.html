@@ -1,9 +1,10 @@
-{% extends 'app/base.html' %}
-{% block content %}
-
-  <div onload="document.payuForm.submit()">
-        <h5>Please do not refresh the page....</h5><br>
-        <h6>redirecting to payment gateway</h6>
+<html>
+<head>
+<title>Loading...</title>
+</head>
+  <body onload="document.payuForm.submit()">
+        <h3 class="center">Please do not refresh the page....</h3><br>
+        <h4 class="center">redirecting to payment gateway</h4>
 
       <form action={{ posted.action }} method="post" name="payuForm">
 
@@ -34,5 +35,5 @@
           <input type="hidden" name="udf4" value="{{ posted.udf4 }}" /></td>
           <input type="hidden" name="udf5" value="{{ posted.udf5 }}" /></td>
       </form>
-  </div>
-  {% endblock %}
+  </body>
+  </html>
