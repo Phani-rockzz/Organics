@@ -105,17 +105,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'farmwaydb',
-        'USER': 'farmway_admin',
-        'PASSWORD': 'Admin@sai&phani',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mydata',
+            'USER': 'postgres',
+            'PASSWORD': 'sanjayjanu@1',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'farmwaydb',
+            'USER': 'farmway_admin',
+            'PASSWORD': 'Admin@sai&phani',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -167,19 +179,35 @@ PAYTM_INDUSTRY_TYPE_ID = "Retail"  # For staging environment
 PAYTM_CHANNEL_ID = "WEB"
 PAYTM_MERCHANT_KEY = "Vv5M5Iu9b4Yr5&mv"
 PAYTM_MERCHANT_ID = "cxgUTw88628774174098"
-PAYTM_CALLBACK_URL = "https://farmwayorganics.com/response/"  # Hardcode
+if DEBUG:
+    PAYTM_CALLBACK_URL = "http://127.0.0.1:8000/response/"  # Hardcode
+else:
+    PAYTM_CALLBACK_URL = "https://farmwayorganics.com/response/"  # Hardcode
 PAYTM_WEBSITE = "WEBSTAGING"
-PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
-PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
+if DEBUG:
+    PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
+    PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
+else:
+    PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
+    PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IN'
 
+if DEBUG:
+    PAYU_CONFIG = {
+            "merchant_key": "5cBJaTwT",
+            "merchant_salt": "4C2gwCohCQ",
+            "mode": "test",
+            "success_url": "http://127.0.0.1:8000/payu_success/",
+            "failure_url": "https://127.0.0.1:8000/failure/"
 
-PAYU_CONFIG = {
-        "merchant_key": "5cBJaTwT",
-        "merchant_salt": "4C2gwCohCQ",
-        "mode": "test",
+      }
+else:
+    PAYU_CONFIG = {
+        "merchant_key": "jkGk0maf",
+        "merchant_salt": "i4YRroioKF",
+        "mode": "live",
         "success_url": "https://farmwayorganics.com/payu_success/",
         "failure_url": "https://farmwayorganics.com/failure/"
-  }
+    }

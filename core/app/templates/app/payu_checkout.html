@@ -1,11 +1,7 @@
-<html>
-    <meta name = "viewport" content= "width=device-width"  initial-scale=1, shrint-to-fit="no">
-      <meta charset="utf-8">
-  <head>
-      <title>Loading...</title>
-  </head>
+{% extends 'app/base.html' %}
+{% block content %}
 
-  <body onload="document.payuForm.submit()">
+  <div onload="document.payuForm.submit()">
         <h5>Please do not refresh the page....</h5><br>
         <h6>redirecting to payment gateway</h6>
 
@@ -38,5 +34,5 @@
           <input type="hidden" name="udf4" value="{{ posted.udf4 }}" /></td>
           <input type="hidden" name="udf5" value="{{ posted.udf5 }}" /></td>
       </form>
-  </body>
-  </html>
+  </div>
+  {% endblock %}

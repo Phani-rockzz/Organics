@@ -181,7 +181,7 @@ def response(request):
             order.mode = True
             order.payment = p
             order.save()
-            PaytmHistory.objects.create(user=order.user, **data_dict)
+#            PaytmHistory.objects.create(user=order.user, **data_dict)
             return render(request, "app/response.html", {"paytm": data_dict})
         else:
             return HttpResponse("checksum verify failed")
