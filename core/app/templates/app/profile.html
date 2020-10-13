@@ -30,6 +30,7 @@
             <th scope="col">Ship To</th>
             <th scope="col">Order Total</th>
             <th scope="col">Payment Mode</th>
+            <th scope="col">Status</th>
 
             <th scope="col"></th>
         </tr>
@@ -49,7 +50,20 @@
             <td>COD</td>
             {% endif %}
 
-            <td></td>
+            {% if order.refund_granted %}
+                <td><small class="badge badge-danger">refunded</small></td>
+            {% elif order.mode == False and order.refund_requested %}
+                <td><small class="badge badge-danger">Cancelled</small></td>
+            {% elif order.refund_requested %}
+                <td><small class="badge badge-warning">refund requested</small></td>
+
+            {% elif order.received %}
+                <td><small class="badge badge-success">Delivered</small></td>
+            {% elif order.being_delivered %}
+                <td><small class="badge badge-primary">Order Confirmed</small></td>
+            {% else %}
+                <td><small class="badge badge-info">Pending</small></td>
+            {% endif %}
 
         </tr>
         {% endif %}

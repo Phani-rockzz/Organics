@@ -36,9 +36,9 @@ class RegisterForm(UserCreationForm):
 
 
 PAYMENT = (
-    ('P', 'Paytm'),
-    ('C', 'cod'),
-    ('D', 'debit/credit card')
+    ('P', 'Paytm/Debit/Credit card'),
+    ('C', 'cod(Cash On Delivery)'),
+    ('D', 'Debit/Credit card/UPI')
 )
 
 
@@ -64,16 +64,21 @@ class CheckoutForm(forms.ModelForm):
 
 
 class ContactForm(forms.ModelForm):
-    contact_name = forms.CharField(max_length=500, label="Name", required=True,
+    contact_name = forms.CharField(max_length=500, required=True, label="Name:",
                                    widget=forms.TextInput(attrs={'placeholder': 'Enter name...'}))
-    contact_email = forms.EmailField(max_length=500, label="Email", required=True,
+    contact_email = forms.EmailField(max_length=500, required=True, label="Email:",
                                      widget=forms.TextInput(attrs={'placeholder': 'Enter email...'}))
-    contact_phone = PhoneNumberField(label='phone', required=True, widget=forms.NumberInput(attrs={'placeholder': 'Enter phone...'}))
-    content = forms.CharField(label='message', widget=forms.Textarea(
-                        attrs={'placeholder': 'Enter your message here...'}), required=True)
+    contact_phone = PhoneNumberField( required=True, label='Phone Number:', widget=forms.NumberInput(attrs={'placeholder': 'Enter phone...'}))
+    content = forms.CharField(required=True, label='Message:', widget=forms.Textarea(
+                        attrs={'placeholder': 'Enter your message here...'}), )
     class Meta:
         model = Contact
         fields =  ['contact_name', 'contact_email', 'contact_phone', 'content']
 
 
-
+class RefundForm(forms.Form):
+    order_id = forms.CharField()
+    message = forms.CharField(widget=forms.Textarea(attrs={
+        'rows': 4
+    }))
+    email = forms.EmailField()

@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container">
 <h4 class="center text-danger">Your Order Details.</h4>
+
 {% if data %}
 <table class="table">
         <thead>
@@ -11,9 +12,9 @@
             <th scope="col">Date</th>
             <th scope="col">Ship To</th>
             <th scope="col">Order Total</th>
-            <th scope="col">Payment Mode</th>
-            <th scope="col">Ordered</th>
-            <th scope="col"></th>
+            {% comment %}<th scope="col">Payment Mode</th>
+            <th scope="col">Ordered</th>{% endcomment %}
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
@@ -25,13 +26,26 @@
             <td>{{ order.ordered_date }}</td>
             <td>{{ order.user.name }}</td>
             <td>{{ order.payment.amount }}</td>
-            {% if order.mode == True %}
+            {% comment %}{% if order.mode == True %}
             <td>Online</td>
             {% else %}
             <td>COD</td>
             {% endif %}
-            <td>{{ order.ordered }}</td>
-            <td></td>
+            <td>{{ order.ordered }}</td>{% endcomment %}
+            {% if order.refund_granted %}
+                <td><small class="badge badge-danger">refunded</small></td>
+            {% elif order.mode == False and order.refund_requested %}
+                <td><small class="badge badge-danger">Cancelled</small></td>
+            {% elif order.refund_requested %}
+                <td><small class="badge badge-warning">refund requested</small></td>
+
+            {% elif order.received %}
+                <td><small class="badge badge-success">Delivered</small></td>
+            {% elif order.being_delivered %}
+                <td><small class="badge badge-primary">Order Confirmed</small></td>
+            {% else %}
+                <td><small class="badge badge-info">Pending</small></td>
+            {% endif %}
             <td><a href="{% url 'app:details'  pk=order.pk %}">View details</a></td>
         </tr>
         {% endif %}
@@ -41,6 +55,8 @@
 
 
 {% endif %}
+<h6>To cancel your order <a href="{% url 'app:request-refund' %}">Click here</a></h6>
+<small>Note : keep your order id handy to cancel your order and the status refunded or cancelled denotes that the order is closed. </small>
 </div>
 
 {% endblock %}

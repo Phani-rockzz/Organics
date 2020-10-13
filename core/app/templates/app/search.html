@@ -14,9 +14,9 @@
 <br/>
 <br/><br/>
 
-
+{% if object_list %}
  <div class="row">
-    {% if object_list %}
+
       {% for product in object_list %}
 
       <div class="card col-md-4">
@@ -44,13 +44,14 @@
         {% elif not object_list %}
         <h3>Sorry! no data found, please try again.</h3>
 
-     {% endif %}
+
 
 
       <hr/>
 
 
   </div>
+  {% endif %}
 
 
 

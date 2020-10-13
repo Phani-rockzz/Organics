@@ -18,6 +18,7 @@
             <th scope="col">Payment Mode</th>
             <th scope="col">Ordered</th>
             <th scope="col">Details</th>
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
@@ -35,6 +36,20 @@
             <td>COD</td>
             {% endif %}
             <td>{{ order.ordered }}</td>
+            {% if order.refund_granted %}
+                <td><small class="badge badge-danger">refunded</small></td>
+            {% elif order.mode == False and order.refund_requested %}
+                <td><small class="badge badge-danger">Cancelled</small></td>
+            {% elif order.refund_requested %}
+                <td><small class="badge badge-warning">refund requested</small></td>
+
+            {% elif order.received %}
+                <td><small class="badge badge-success">Delivered</small></td>
+            {% elif order.being_delivered %}
+                <td><small class="badge badge-primary">Order Confirmed</small></td>
+            {% else %}
+                <td><small class="badge badge-info">Pending</small></td>
+            {% endif %}
             
             <td><a href="{% url 'app:dashboard_order_details'  pk=order.pk %}">View details</a></td>
         </tr>

@@ -31,10 +31,13 @@ urlpatterns = [
     path('remove-from-cart/<pk>/', views.remove_from_cart, name='remove-from-cart'),
     path('reduce-quantity-item/<pk>/', views.reduce_quantity_item, name='reduce-quantity-item'),
     path('search/', views.search.as_view(), name='search'),
+    path('request-refund/', views.RequestRefundView.as_view(), name='request-refund'),
     path('dashboard/staff/home/', views.dashboard, name='dashboard'),
     path('dashboard/staff/order/<pk>', views.dashboard_order_details, name='dashboard_order_details'),
     path('dashboard/staff/failed_orders/', views.dashboard_failed, name='dashboard_failed'),
     path('dashboard/staff/failed_orders/<pk>', views.dashboard_failed_details, name='dashboard_failed_details'),
+    path('dashboard/staff/contacts/', views.dashboard_contact, name='dashboard_contact'),
+    path('dashboard/staff/contact_details/<pk>', views.dashboard_contact_details, name='dashboard_contact_details'),
     path('password_reset/',
          auth_views.PasswordResetView.as_view(
              template_name='app/password_reset_form.html',

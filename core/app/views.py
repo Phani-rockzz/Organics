@@ -6,13 +6,13 @@ from django.contrib.auth import login, authenticate
 from .forms import RegisterForm
 from django.contrib import messages
 from django.http import Http404, HttpResponse, HttpResponseRedirect, request
-from .forms import ContactForm, CheckoutForm
+from .forms import ContactForm, CheckoutForm, RefundForm
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views.generic import ListView, DetailView, View
-from .models import Item, OrderItem, Order, CheckoutAddress, Payment, User, PaytmHistory
+from .models import Item, OrderItem, Order, CheckoutAddress, Payment, User, PaytmHistory, Contact, Refund
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity, TrigramDistance
 from django.db.models import Q
 from django.utils import timezone
@@ -23,6 +23,7 @@ from django.http.response import JsonResponse  # new
 from django.views.decorators.csrf import csrf_exempt  # new
 from django.template.loader import render_to_string
 from . import checksum
+from django.core.mail import send_mail
 from .utils import VerifyPaytmResponse
 user = settings.AUTH_USER_MODEL
 
@@ -139,8 +140,20 @@ class CheckoutView(View):
                     payment.paid = False
                     payment.save()
                     order.ordered = True
+                    order.order_id = order_id
                     order.payment = payment
                     order.save()
+                    subject = "Order Confirmation from Farmway Organics"
+                    message = 'Dear {}, \n\nYou have successfully placed an order.\
+                            Your order id is {}. We will deliver your happiness as soon as possible thank you for shopping with us'.format(order.user.name, order.order_id)
+
+                    send_mail(
+                        subject,
+                        message,
+                        'phanigoud123@gmail.com',
+                        [order.user.email],
+                        fail_silently=False,
+                    )
                     messages.success(self.request, "Thank u, Your order was successful", extra_tags='alert '
                                                                                                     'alert-success')
                     return redirect('app:success')
@@ -180,7 +193,20 @@ def response(request):
             order.ordered = True
             order.mode = True
             order.payment = p
+
             order.save()
+            subject = "Order Confirmation from Farmway Organics"
+            message = 'Dear {}, \n\nYou have successfully placed an order.\
+                                        Your order id is {}. We will deliver your happiness as soon as possible thank you for shopping with us'.format(
+                order.user.name, order.order_id)
+
+            send_mail(
+                subject,
+                message,
+                'phanigoud123@gmail.com',
+                [order.user.email],
+                fail_silently=False,
+            )
 #            PaytmHistory.objects.create(user=order.user, **data_dict)
             return render(request, "app/response.html", {"paytm": data_dict})
         else:
@@ -213,6 +239,7 @@ def paytm(request):
         payment.user = order.user
         payment.save()
         order.payment = payment
+        order.order_id = order_id
         order.save()
         context = {
             'payment_url': settings.PAYTM_PAYMENT_GATEWAY_URL,
@@ -269,6 +296,7 @@ def payu_checkout(request):
     payment.user = order.user
     payment.save()
     order.payment = payment
+    order.order_id = order_id
     order.save()
     txnid = order_id
     data.update({"txnid": txnid})
@@ -293,6 +321,18 @@ def payu_success(request):
         order.ordered = True
         order.mode = True
         order.save()
+        subject = "Order Confirmation from Farmway Organics"
+        message = 'Dear {}, \n\nYou have successfully placed an order.\
+                                    Your order id is {}. We will deliver your happiness as soon as possible thank you for shopping with us'.format(
+            order.user.name, order.order_id)
+
+        send_mail(
+            subject,
+            message,
+            'phanigoud123@gmail.com',
+            [order.user.email],
+            fail_silently=False,
+        )
 
     return render(request, 'app/payu_success.html', {'response': response})
 
@@ -300,7 +340,7 @@ def payu_success(request):
 def payu_failure(request):
     data = {k: v[0] for k, v in dict(request.POST).items()}
     response = payu.verify_transaction(data)
-    return render(request, 'app/payu_success.html', {'response': response})
+    return render(request, 'app/failure.html', {'response': response})
 
 @login_required
 def payu_cash(request):
@@ -335,7 +375,7 @@ def register(request):
             form.save()
 
             registered = True
-            messages.success(request, 'Thank you! Your Account Was Successfully Created!',
+            messages.success(request, 'Thank you! Your Account Was Successfully Created.',
                              extra_tags='alert alert-success')
             return redirect('app:signup')
         else:
@@ -399,12 +439,14 @@ def contactview(request):
             email = EmailMessage(
                 "New contact form submission",
                 content,
-                "Your website" + ' ',
+                "Farmway Organics" + ' ',
                 ['mekapotulaphani@gmail.com'],
                 headers={'Reply-To': contact_email}
             )
             email.send()
             form.save()
+            messages.success(request, 'Thank you! Your request Was Successfully Created.',
+                             extra_tags='alert alert-success')
             return redirect('app:contact')
     return render(request, "app/contact.html", {'form': form_class})
 
@@ -497,6 +539,42 @@ def reduce_quantity_item(request, pk):
         messages.info(request, "You do not have an Order", extra_tags='alert alert-info')
         return redirect("app:order-summary")
 
+
+class RequestRefundView(View):
+    def get(self, *args, **kwargs):
+        form = RefundForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, "app/request_refund.html", context)
+
+    def post(self, *args, **kwargs):
+        form = RefundForm(self.request.POST)
+        if form.is_valid():
+            order_id = form.cleaned_data.get('order_id')
+            message = form.cleaned_data.get('message')
+            email = form.cleaned_data.get('email')
+            # edit the order
+            try:
+                order = Order.objects.get(order_id=order_id)
+                order.refund_requested = True
+                order.save()
+
+                # store the refund
+                refund = Refund()
+                refund.order = order
+                refund.reason = message
+                refund.email = email
+                refund.save()
+
+                messages.info(self.request, "Your request was received.")
+                return redirect("app:request-refund")
+
+            except ObjectDoesNotExist:
+                messages.info(self.request, "This order does not exist.")
+                return redirect("app:request-refund")
+
+
 @login_required
 def dashboard(request):
     order = Order.objects.all().order_by('-ordered_date')
@@ -519,3 +597,13 @@ def dashboard_failed(request):
 def dashboard_failed_details(request, pk):
     order = Order.objects.filter(pk=pk).order_by('-ordered_date')
     return render(request, 'app/dashboard_order_details.html', {'object': order})
+
+@login_required
+def dashboard_contact(request):
+    contact = Contact.objects.all()
+    return render(request, 'app/dashboard_contacts.html', {'contact': contact})
+
+@login_required
+def dashboard_contact_details(request, pk):
+    contact = Contact.objects.filter(pk=pk)
+    return render(request, 'app/dashboard_contact_details.html', {'contact': contact})

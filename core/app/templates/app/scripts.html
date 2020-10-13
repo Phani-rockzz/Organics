@@ -71,13 +71,14 @@ jQuery(".carousel").owlCarousel({
   lazyLoad: true,
   rewind: true,
   margin: 20,
-/*  animateOut: 'fadeOut',
-  animateIn: 'fadeIn', */
+  animateOut: 'fadeOut',
+  animateIn: 'fadeIn',
   responsiveClass: true,
   autoHeight: true,
   autoplayTimeout: 7000,
   smartSpeed: 800,
   nav: true,
+  dots: false,
   responsive: {
     0: {
       items: 1
@@ -96,5 +97,26 @@ jQuery(".carousel").owlCarousel({
     }
   }
 });
+
+jQuery("#owl-demo").owlCarousel({
+  autoplay: true,
+  lazyLoad: true,
+  rewind: true,
+  autoplayTimeout: 6000,
+  smartSpeed: 500,
+  navigation : true, // Show next and prev buttons//
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    singleItem:true,
+    items : 1,
+      itemsDesktop : false,
+      itemsDesktopSmall : false,
+      itemsTablet: false,
+      itemsMobile : false
+
+});
+
+
+
 
 </script>

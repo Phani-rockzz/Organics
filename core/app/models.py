@@ -20,6 +20,8 @@ from io import StringIO
 from django.conf import settings as app_settings
 
 
+def create_ref_code():
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
 # Create your models here.
 
 
@@ -135,6 +137,7 @@ def increment_order_number():
 
 class Order(models.Model):
     order_no = models.CharField(max_length=500, default=increment_order_number, null=True, blank=True)
+    order_id = models.CharField(max_length=500, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     items = models.ManyToManyField(OrderItem, related_name='order_items')
     start_date = models.DateTimeField(auto_now_add=True, null=True)
@@ -145,6 +148,21 @@ class Order(models.Model):
     payment = models.ForeignKey(
         'Payment', on_delete=models.SET_NULL, blank=True, null=True, )
     mode = models.BooleanField(default=False, blank=True, null=True)
+    being_delivered = models.BooleanField(default=False)
+    received = models.BooleanField(default=False)
+    refund_requested = models.BooleanField(default=False)
+    refund_granted = models.BooleanField(default=False)
+
+    '''
+    1. Item added to cart
+    2. Adding a billing address
+    (Failed checkout)
+    3. Payment
+    (Preprocessing, processing, packaging etc.)
+    4. Being delivered
+    5. Received
+    6. Refunds
+    '''
 
     def __str__(self):
         return self.user.email
@@ -242,3 +260,11 @@ class PaytmHistory(models.Model):
     def __str__(self):
         return self.STATUS
 
+class Refund(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    reason = models.TextField()
+    accepted = models.BooleanField(default=False)
+    email = models.EmailField()
+
+    def __str__(self):
+        return f"{self.pk}"

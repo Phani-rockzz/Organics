@@ -200,7 +200,7 @@ if DEBUG:
             "merchant_salt": "4C2gwCohCQ",
             "mode": "test",
             "success_url": "http://127.0.0.1:8000/payu_success/",
-            "failure_url": "https://127.0.0.1:8000/failure/"
+            "failure_url": "http://127.0.0.1:8000/failure/"
 
       }
 else:

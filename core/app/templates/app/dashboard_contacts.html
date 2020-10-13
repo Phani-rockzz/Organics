@@ -1,0 +1,35 @@
+{% extends 'app/base1.html' %}
+{% block content %}
+<div class="container">
+    <h1 style="color: teal; text-align: center">Farmway Organics Dashboard</h1>
+    {% if user.is_authenticated %}
+        <h3 style="text-align: center">Welcome Mr/Mrs. {{ user.name }}</h3>
+    {% endif %}
+    <h3 style="text-align: center;  color: #1b5e20">All Contacts </h3>
+{% if contact %}
+<table class="table">
+        <thead>
+        <tr class="text-danger">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone number</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in contact %}
+
+        <tr class="text-success">
+            <th scope="row" class="text-danger">{{ forloop.counter }}</th>
+            <td>{{ data.contact_name }}</td>
+            <td>{{ data.contact_phone }}</td>
+
+            
+            <td><a href="{% url 'app:dashboard_contact_details'  pk=data.pk %}">View details</a></td>
+        </tr>
+
+        {% endfor %}
+        </tbody></table>
+{% endif %}
+</div>
+{% endblock %}

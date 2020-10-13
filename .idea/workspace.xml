@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:code" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4ee35f8a-b661-475b-89b2-b42ee96f871e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/core/app/checksum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/migrations/0002_auto_20201012_2046.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/migrations/0003_order_order_id.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/assets/owl-carousel/owl.carousel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/css/owl.carousel.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/css/owl.theme.default.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/about-us.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/blog-default.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/bonsai-maple-png.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/dashboard.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/gardentree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/pngfuel.com.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/rubber plant.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/js/owl.carousel.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/scss/_theme.default.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/scss/owl.theme.default.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/about.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/base1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/cashfree.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_contact_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_contacts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_order_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/failure.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/notify.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/order_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/orders.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/payu_cash.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/payu_checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/payu_success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/request_refund.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/response.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/static/app/css/owl.carousel.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/static/app/css/owl.theme.default.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/migrations/0002_auto_20200829_2141.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/about.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/comment_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/post_confirm_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/post_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/post_draft_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/post_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/templates/blog/post_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/blog/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/contacts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/orders.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/dashboard/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/02_E94t66n.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/20200815_222848.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/about-us.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/blog-default.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/bonsai-maple-png.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/bonsai-maple-png_SSpVBVM.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/bonsai-maple-png_Wn2rSyn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/media/images/gardentree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/static/img/blog-default.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/core/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/static/app/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/static/app/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/static/app/js/navstyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/static/app/js/navstyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/order-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/order-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/password_change.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/password_change.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/password_change_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/password_change_done.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/scripts.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/scripts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/templates/app/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/templates/app/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/utils/friendly_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/core/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/core/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/mydatabase" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/core" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectId" id="1f4n3InzvVCIPIc1UtpKB4Hh50V" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/core/app/static/app/img" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\img" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\media\images" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\static\img" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\css" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\scss" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\js" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\templates\app\static" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\utils" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4ee35f8a-b661-475b-89b2-b42ee96f871e" name="Default Changelist" comment="" />
+      <created>1595486031592</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595486031592</updated>
+      <workItem from="1595486034200" duration="23538000" />
+      <workItem from="1595573444432" duration="22838000" />
+      <workItem from="1595660850473" duration="23947000" />
+      <workItem from="1595743908449" duration="17396000" />
+      <workItem from="1595829335964" duration="22270000" />
+      <workItem from="1596713538907" duration="16896000" />
+      <workItem from="1596810643373" duration="6348000" />
+      <workItem from="1596878862359" duration="16551000" />
+      <workItem from="1596964341139" duration="13124000" />
+      <workItem from="1597059298379" duration="4515000" />
+      <workItem from="1597138213461" duration="13093000" />
+      <workItem from="1597155827865" duration="5965000" />
+      <workItem from="1597297696500" duration="26178000" />
+      <workItem from="1597564458436" duration="7369000" />
+      <workItem from="1597574773580" duration="9992000" />
+      <workItem from="1597645438415" duration="26712000" />
+      <workItem from="1597737898983" duration="21775000" />
+      <workItem from="1597838921838" duration="14031000" />
+      <workItem from="1597918496586" duration="12721000" />
+      <workItem from="1597989175383" duration="20919000" />
+      <workItem from="1598074787427" duration="11431000" />
+      <workItem from="1598090410643" duration="7837000" />
+      <workItem from="1598361008825" duration="1193000" />
+      <workItem from="1598679941556" duration="23447000" />
+      <workItem from="1598936969653" duration="17675000" />
+      <workItem from="1598970482830" duration="7131000" />
+      <workItem from="1599035181412" duration="15987000" />
+      <workItem from="1599060303105" duration="5411000" />
+      <workItem from="1599122060681" duration="14147000" />
+      <workItem from="1599202067287" duration="11619000" />
+      <workItem from="1599214438309" duration="2585000" />
+      <workItem from="1599223266800" duration="11487000" />
+      <workItem from="1599289455951" duration="11848000" />
+      <workItem from="1599380557873" duration="6222000" />
+      <workItem from="1599389612600" duration="9180000" />
+      <workItem from="1599469431074" duration="8592000" />
+      <workItem from="1599553718896" duration="10156000" />
+      <workItem from="1599642705023" duration="6465000" />
+      <workItem from="1599663648938" duration="1869000" />
+      <workItem from="1600003193401" duration="10877000" />
+      <workItem from="1600246856183" duration="4245000" />
+      <workItem from="1601451747413" duration="7917000" />
+      <workItem from="1601628146458" duration="22358000" />
+      <workItem from="1601696164338" duration="31324000" />
+      <workItem from="1601823729369" duration="4002000" />
+      <workItem from="1601873419822" duration="15792000" />
+      <workItem from="1602404123187" duration="19698000" />
+      <workItem from="1602513434210" duration="9008000" />
+      <workItem from="1602568075076" duration="862000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="code" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="309" y="42" key="#Inspections" timestamp="1602409793800">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="309" y="42" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1602409793800" />
+    <state x="458" y="166" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599577991845">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="458" y="166" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1599577991845" />
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597160233431">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597160233431" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1601630894329">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1601630894329" />
+    <state x="492" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601897245646">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="492" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1601897245646" />
+  </component>
+</project>

@@ -3,26 +3,16 @@
 
 <div class="jumbotron">
 
-    <center><h3 class="text-danger">Sorry something went wrong with the payment.</h3><br>
-        <h1 class="text-danger">Your Order was not Successful</h1><br>
-        {% if order %}
-        {% for order in order %}
-        <h4>Order Id is : {{ order.payment.txn_id }}</h4>
-        {% endfor %}
-        {% endif %}
-        <h4>please try again later,Have a Good day.</h4>
+    <center><h3>Sorry something went wrong.</h3><br>
+        <h1 class="text-danger">Your Order was Not Successful, please try again later</h1><br>
+        <h4>Have a Good day.</h4>
     </center>
-    <h6>NOTE: In case of transaction failure if your account was debited please contact us.<a href="tel:9493354366">CLICK TO CALL</a></h6>
-
 
 </div>
-{% comment %}
-{% extends 'app/base.html' %}
-{% block content %}
+<div style="display: none">
 {% for k,v in response.return_data.items %}
     {{ k }} =  {{ v }} <br>
 
 {% endfor %}
-{% endblock %}
-{% endcomment %}
+</div>
 {% endblock %}

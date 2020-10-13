@@ -13,13 +13,10 @@
     </center>
 
 </div>
-{% comment %}
-{% extends 'app/base.html' %}
-{% block content %}
+<div style="display: none">
 {% for k,v in response.return_data.items %}
     {{ k }} =  {{ v }} <br>
-
 {% endfor %}
-{% endblock %}
-{% endcomment %}
+</div>
+
 {% endblock %}
