@@ -16,7 +16,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ee35f8a-b661-475b-89b2-b42ee96f871e" name="Default Changelist" comment="">
+    <list default="true" id="4ee35f8a-b661-475b-89b2-b42ee96f871e" name="Default Changelist" comment="payu failure">
       <change afterPath="$PROJECT_DIR$/core/app/checksum.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/migrations/0002_auto_20201012_2046.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/migrations/0003_order_order_id.py" afterDir="false" />
@@ -47,7 +47,6 @@
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed_details.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_order_details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/app/templates/app/failure.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/notify.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/order_details.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/orders.html" afterDir="false" />
@@ -101,6 +100,7 @@
       <change afterPath="$PROJECT_DIR$/core/media/images/bonsai-maple-png_Wn2rSyn.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/media/images/gardentree.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/static/img/blog-default.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/core/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app/forms.py" afterDir="false" />
@@ -246,8 +246,16 @@
       <workItem from="1601873419822" duration="15792000" />
       <workItem from="1602404123187" duration="19698000" />
       <workItem from="1602513434210" duration="9008000" />
-      <workItem from="1602568075076" duration="862000" />
+      <workItem from="1602568075076" duration="1916000" />
     </task>
+    <task id="LOCAL-00001" summary="payu failure">
+      <created>1602571441866</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602571441867</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +292,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="payu failure" />
+    <option name="LAST_COMMIT_MESSAGE" value="payu failure" />
   </component>
   <component name="WindowStateProjectService">
     <state x="309" y="42" key="#Inspections" timestamp="1602409793800">
