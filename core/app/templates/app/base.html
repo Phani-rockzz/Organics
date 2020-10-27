@@ -14,7 +14,6 @@
          name="description"
          content="farmway organics.">
 
-
       <title>Farmway Organics</title>
 
       <!-- Font Awesome --->
@@ -150,7 +149,7 @@
           <li class="nav-item  d-inline-block px-2">
             <a class="nav-link" href="{% url 'app:order-summary' %}" title="Cart">
                 {% if request.user|cart_item_count != 0 %}
-                    <span class="badge badge-danger z-depth-1 mr-1">{{ request.user|cart_item_count }}</span>
+                    <span class="badge btn-danger z-depth-1 mr-1">{{ request.user|cart_item_count }}</span>
                 {% endif %}
                 <i class="fas fa-cart-plus"></i> <span class="clearfix d-none d-md-inline-block"> Cart </span></a>
           </li>

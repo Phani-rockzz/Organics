@@ -122,7 +122,15 @@
 
     </div>{% endcomment %}
      <p style="color: #e74c3c; text-align: center">
-         Rs.{{product.price}}
+         {% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}
+
      </p><div>
      <a href="{{ product.get_absolute_url }}" class="btn btn-danger" style="text-align: center">View Product</a>
     </div></div>
@@ -130,7 +138,12 @@
 
 {% endfor %}
 </div>
-
+    <div class="jumbotron" style="background-color: whitesmoke !important;">
+    <h2 class="center" style="color: #1b5e20">Advantages of Organic Farming</h2>
+        <p>Because organic farming doesn’t hold just an ethical advantage over conventional farming. There’s also widely researched environmental and nutritional benefits, with even some rarely-mentioned financial benefits, due to zero reliance on artificial pesticides, fertilisers, or growth enhancers.</p>
+        <p>From an ethical standpoint, it’s apparent that organic farming provides a superior environment and profound respect for farm animals and agricultural produce. These values promote quality over quantity, encouraging farmers to produce food that is free of contamination from man-made pesticides, GMOs, growth enhancers, or artificial additives, which in turn makes organic food a healthier choice for breakfast, lunch, and dinner.</p>
+        <p>Researchers found that organic produce contains 18 to 69 percent higher concentrations of antioxidants, meaning that in one portion, organic foodsters consume two to three times more antioxidants than what can be found in one portion of non-organic produce.</p>
+    </div>
 
 
 <div class=" jumbotron owl-carousel owl-theme" id="owl-demo">
@@ -161,7 +174,6 @@
 
 
 </div>
-
 
 
 

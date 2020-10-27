@@ -1,0 +1,31 @@
+{% extends 'app/base1.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <main>
+    <div class="container">
+    <br>
+    <center><h2>Status Update</h2></center>
+    <center><form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div>   {{ form.being_delivered|as_crispy_field }}</div>
+        </div>
+        <div class="form-group">
+            <div>   {{ form.received|as_crispy_field }}</div>
+        </div>
+        <div class="form-group">
+            <div>   {{ form.refund_requested|as_crispy_field }}</div>
+        </div>
+        <div class="form-group">
+            <div>   {{ form.refund_granted|as_crispy_field }}</div>
+        </div>
+        <a href="{% url 'app:dashboard' %} " class="btn btn-warning">Back</a>&nbsp;&nbsp;<button type='submit' class='btn btn-primary'>Submit</button>
+    </form></center>
+        <small>Note: Being delivered = order is shipped</small><br>
+        <small>received = order is delivered</small><br>
+        <small>refund requested = refund is requested by user which means order cancelled</small><br>
+        <small>refund granted = refund is issued(refunded) to user</small><br>
+
+    </div>
+  </main>
+{% endblock %}

@@ -15,6 +15,7 @@
             {% comment %}<th scope="col">Payment Mode</th>
             <th scope="col">Ordered</th>{% endcomment %}
             <th scope="col">Status</th>
+            <th scope="col">View Details</th>
         </tr>
         </thead>
         <tbody>
@@ -33,20 +34,20 @@
             {% endif %}
             <td>{{ order.ordered }}</td>{% endcomment %}
             {% if order.refund_granted %}
-                <td><small class="badge badge-danger">refunded</small></td>
+                <td><small><button class='badge btn-danger'>refunded</button></small></td>
             {% elif order.mode == False and order.refund_requested %}
-                <td><small class="badge badge-danger">Cancelled</small></td>
+                <td><small><button class='badge btn-danger'>Cancelled</button></small></td>
             {% elif order.refund_requested %}
-                <td><small class="badge badge-warning">refund requested</small></td>
+                <td><small><button class='badge btn-warning'>refund requested</button></small></td>
 
             {% elif order.received %}
-                <td><small class="badge badge-success">Delivered</small></td>
+                <td><small><button class='badge btn-success'>Delivered</button></small></td>
             {% elif order.being_delivered %}
-                <td><small class="badge badge-primary">Order Confirmed</small></td>
+                <td><small><button class='badge btn-primary'>Order Confirmed</button></small></td>
             {% else %}
-                <td><small class="badge badge-info">Pending</small></td>
+                <td><small><button class='badge btn-info'>Pending</button></small></td>
             {% endif %}
-            <td><a href="{% url 'app:details'  pk=order.pk %}">View details</a></td>
+            <td><a href="{% url 'app:details'  pk=order.pk %}"><i class="fas fa-eye btn btn-primary" aria-hidden="true"></i></a></td>
         </tr>
         {% endif %}
         {% endfor %}

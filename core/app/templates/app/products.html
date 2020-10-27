@@ -19,10 +19,10 @@
             <a class="nav-link tablinks" onclick="openProduct(event, 'Biofertilizers')" style="cursor: pointer"> Fertilizers </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'Biopesticides')" style="cursor: pointer"> pesticides </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'Biopesticides')" style="cursor: pointer"> Pesticides </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tablinks" onclick="openProduct(event, 'othercultures')" style="cursor: pointer"> Others </a>
+            <a class="nav-link tablinks" onclick="openProduct(event, 'othercultures')" style="cursor: pointer"> Other Products </a>
           </li>
      </ul>
     </div>
@@ -46,7 +46,15 @@
               <!-- Title -->
             <h6 class="card-title" style="color: teal;">{{ product.item_name }}</h6>
               <!-- Text -->
-              <p class="card-text"  style="color: #e74c3c;">Rs.{{ product.price }}</p>
+              <p class="card-text"  style="color: #e74c3c;">
+                  {% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-success">View Product</a>
           </div>
@@ -74,7 +82,14 @@
               <!-- Title -->
               <h6 class="card-title" style="color: teal;">{{ product.item_name }}</h6>
               <!-- Text -->
-              <p class="card-text" style="color: #e74c3c;">Rs.{{ product.price }}</p>
+              <p class="card-text" style="color: #e74c3c;">{% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-success">View Product</a>
           </div>
@@ -104,7 +119,14 @@
               <!-- Title -->
               <h6 class="card-title" style="color: teal;">{{ product.item_name }}</h6>
               <!-- Text -->
-              <p class="card-text" style="color: #e74c3c;">Rs.{{ product.price }}</p>
+              <p class="card-text" style="color: #e74c3c;">{% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-success">View Product</a>
           </div>
@@ -134,7 +156,14 @@
               <!-- Title -->
               <h6 class="card-title" style="color: teal;">{{ product.item_name }}</h6>
               <!-- Text -->
-              <p class="card-text" style="color: #e74c3c;">Rs.{{ product.price }}</p>
+              <p class="card-text" style="color: #e74c3c;">{% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-success">View Product</a>
           </div>
@@ -163,7 +192,14 @@
               <!-- Title -->
               <h6 class="card-title" style="color: teal;">{{ product.item_name }}</h6>
               <!-- Text -->
-              <p class="card-text" style="color: #e74c3c;">Rs.{{ product.price }}</p>
+              <p class="card-text" style="color: #e74c3c;">{% if product.discount_price %}
+              <span class="mr-1">
+              <del>Rs:{{ product.price }}</del>
+              </span>
+              <span>Rs.{{ product.discount_price }}</span>
+            {% else %}
+             <span>Rs.{{ product.price }}</span>
+            {% endif %}</p>
               <!-- Button -->
               <a href="{{ product.get_absolute_url }}" class="btn btn-success">View Product</a>
           </div>

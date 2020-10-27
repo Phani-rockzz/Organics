@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Contact, CheckoutAddress
+from .models import Contact, CheckoutAddress, Order
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -41,6 +41,16 @@ PAYMENT = (
     ('D', 'Debit/Credit card/UPI')
 )
 
+
+class OrderForm(forms.ModelForm):
+    being_delivered = forms.RadioSelect()
+    received = forms.RadioSelect()
+    refund_requested = forms.RadioSelect()
+    refund_granted = forms.RadioSelect()
+
+    class Meta:
+        model = Order
+        fields = ['being_delivered', 'received', 'refund_requested', 'refund_granted']
 
 class CheckoutForm(forms.ModelForm):
     name = forms.CharField(max_length=500, label="Name:", required=True,

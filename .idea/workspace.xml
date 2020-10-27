@@ -27,7 +27,7 @@
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_2.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_5.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/F_M_O_Final_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/about-us.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/static/app/img/about-us -3.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/blog-default.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/bonsai-maple-png.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/static/app/img/dashboard.jpg" afterDir="false" />
@@ -46,7 +46,10 @@
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_contacts.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_failed_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_order_delete.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_order_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_order_update.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/app/templates/app/dashboard_search.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/notify.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/order_details.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/app/templates/app/orders.html" afterDir="false" />
@@ -79,18 +82,6 @@
       <change afterPath="$PROJECT_DIR$/core/blog/tests.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/blog/urls.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/blog/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/contacts.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/templates/dashboard/orders.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/dashboard/views.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/media/images/02_E94t66n.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/media/images/20200815_222848.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/core/media/images/about-us.jpg" afterDir="false" />
@@ -173,19 +164,19 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\img" />
-      <recent name="D:\pycharm projects\projects\NatureOrganics\core\media\images" />
-      <recent name="D:\pycharm projects\projects\NatureOrganics\core\static\img" />
-      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\css" />
-      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\scss" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\js" />
       <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app" />
       <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\templates\app\static" />
       <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\utils" />
       <recent name="D:\pycharm projects\projects\NatureOrganics\core\app" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\img" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\media\images" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\static\img" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\css" />
+      <recent name="D:\pycharm projects\projects\NatureOrganics\core\app\static\app\scss" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -246,7 +237,14 @@
       <workItem from="1601873419822" duration="15792000" />
       <workItem from="1602404123187" duration="19698000" />
       <workItem from="1602513434210" duration="9008000" />
-      <workItem from="1602568075076" duration="1916000" />
+      <workItem from="1602568075076" duration="6618000" />
+      <workItem from="1602772422443" duration="7359000" />
+      <workItem from="1602838809962" duration="8645000" />
+      <workItem from="1602853948246" duration="2996000" />
+      <workItem from="1602914606803" duration="8343000" />
+      <workItem from="1603289984517" duration="7186000" />
+      <workItem from="1603524824744" duration="788000" />
+      <workItem from="1603813784522" duration="798000" />
     </task>
     <task id="LOCAL-00001" summary="payu failure">
       <created>1602571441866</created>

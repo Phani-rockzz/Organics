@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from .forms import RegisterForm
 from django.contrib import messages
 from django.http import Http404, HttpResponse, HttpResponseRedirect, request
-from .forms import ContactForm, CheckoutForm, RefundForm
+from .forms import ContactForm, CheckoutForm, RefundForm, OrderForm
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.shortcuts import redirect
@@ -68,6 +68,34 @@ def get_order_details(request, pk):
     order = Order.objects.filter(user=request.user, pk=pk).prefetch_related('items').select_related('address').select_related('payment')
 
     return render(request, 'app/order_details.html', {'object': order, 'object1': address, 'object2': payment})
+
+@login_required
+def order_update(request, pk):
+
+    if request.user.is_superuser:
+        form = get_object_or_404(Order, pk=pk)
+    else:
+        form = get_object_or_404(Order, pk=pk, user=request.user)
+    form = OrderForm(request.POST or None, instance=form)
+    if form.is_valid():
+        form.save()
+        return redirect('app:dashboard')
+    return render(request, 'app/dashboard_order_update.html', {'form': form})
+
+
+@login_required
+def order_delete(request, pk):
+
+    if request.user.is_superuser:
+        post = get_object_or_404(Order, pk=pk)
+    else:
+        post = get_object_or_404(Order, pk=pk, user=request.user)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('app:dashboard')
+    return render(request, 'app/dashboard_order_delete.html', {'object': post})
+
+
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
@@ -404,6 +432,21 @@ class search(ListView):
             return response
 
 
+class DashboardSearch(ListView):
+    model = Order
+    template_name = 'app/dashboard_search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', None)
+        if query:
+            object_list = Order.objects.annotate(search=SearchVector('order_id', weight='A') + SearchVector(
+                'user', weight='B'), ).filter(search=SearchQuery(query)).distinct('order_id', 'user')
+            return object_list
+        else:
+            response = HttpResponse('Sorry! no data found.')
+            return response
+
+
 from django.core.mail import send_mail
 
 
@@ -505,7 +548,7 @@ def remove_from_cart(request, pk):
             return redirect("app:product", pk=pk)
     else:
         # add message doesnt have order
-        messages.warning(request, "You do not have an Order", extra_tags='alert alert-warning')
+        messages.warning(request, "You do not have an Order", extra_tags='alert alert-info')
         return redirect("app:product", pk=pk)
 
 

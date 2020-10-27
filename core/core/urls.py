@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include('app.urls', namespace='app')),
     path('blog/', include('blog.urls', namespace='blog')),
-    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+
     path('', include('pwa.urls')),
     path('tinymce/', include('tinymce.urls')),
 

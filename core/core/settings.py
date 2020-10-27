@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'paywix',
     'app',
     'blog',
-    'dashboard',
+
 
 
 ]

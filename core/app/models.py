@@ -171,7 +171,7 @@ class Order(models.Model):
         return 999
 
     def shipping_price(self):
-        return 40
+        return 90
 
     def get_total_price(self):
         total = 0

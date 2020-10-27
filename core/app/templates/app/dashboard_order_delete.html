@@ -1,0 +1,18 @@
+{% extends 'app/base1.html' %}
+{% block content %}
+<div class="jumbotron">
+   <form method="post">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete order:"{{ object.order_id }}" on dated {{ object.ordered_date }} ?</h2>
+    <ul>
+        <p><li>User : <h4>{{ object.user.email }}</h4></li></p>
+        <p><li>phone is : <h4>{{ object.user.phone }}</h4></li></p>
+        <p><li>Order id is : <h4>{{ object.order_id }}</h4></li></p>
+        <p><li>Amount is : <h4>{{ object.payment.amount }}</h4></li></p>
+    </ul>
+     <input class="btn btn-danger" type="submit" value="Delete" /> &nbsp;&nbsp;
+    <a class="btn btn-warning" href="{% url 'app:dashboard' %}">Back to list</a>
+ </form>
+</div>
+
+{% endblock %}

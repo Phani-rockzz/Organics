@@ -98,7 +98,7 @@
                   <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
                 </div><br>
                 {% endfor %}
-                  <p>Note : If you are selecting cash on delivery(COD) by clicking 'Continue to checkout' your order will be directly placed.</p>
+                  <small>Note : If you are selecting cash on delivery(COD) by clicking 'Continue to checkout' your order will be directly placed.</small>
               </div>
              
               <hr class="mb-4">
@@ -140,16 +140,16 @@
                 <h6 class="my-0">Promo code</h6>
                 <small>EXAMPLECODE</small>
               </div>
-              <span class="text-success">-$0</span>
+              <span class="text-success">-Rs.0</span>
             </li> {% endcomment %}
             {% if order.total %}
             <li class="list-group-item d-flex justify-content-between">
 
               <span>Shipping Charges</span>
               {% if order.total <= 999 %}
-              <strong>Rs. 40</strong>
+              <strong>Rs.90</strong>
             {% else %}
-              <strong> - </strong>
+              <strong> free </strong>
               {% endif %}
             </li>
             <li class="list-group-item d-flex justify-content-between">

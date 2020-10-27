@@ -1,7 +1,7 @@
 {% extends 'app/base1.html' %}
 {% block content %}
 <div class="container">
-    <strong><h4 class="text-danger center">Order Details:</h4></strong><hr>
+    <center><strong><h4 class="text-danger center">Order Details</h4></strong></center><a href="{% url 'app:dashboard' %} " class="btn btn-warning end">Back</a><hr>
     {% if object %}
     {% for order_item in object %}
     <div class=" col-md-6">
